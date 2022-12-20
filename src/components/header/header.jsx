@@ -10,8 +10,7 @@ const Header = () => {
     return (
         <div className={styles.header}>
             <nav className={styles.menu}>
-                <ul className={`${styles.menu__items}`}>
-                    <li className={`${styles.menu__item} ${styles.menu__item_left}`}>
+                    <div className={`${styles.menu__item} ${styles.menu__item_left}`}>
                         <a href="/" className={styles.menu__link}>
                             <BurgerIcon type="primary"/>
                             <p className={styles.menu__text}>Конструктор</p>
@@ -20,19 +19,18 @@ const Header = () => {
                             <ListIcon type="secondary"></ListIcon>
                             <p className={styles.menu__text}>Лента заказов</p>
                         </a>
-                    </li>
-                    <li className={styles.menu__item}>
-                        <a href="/" className={styles.menu__link}>
-                            <Logo/>
-                        </a>
-                    </li>
-                    <li className={styles.menu__item}>
+                    </div>
+                    <div className={styles.menu__item}>
                         <a href="/" className={styles.menu__link}>
                             <ProfileIcon/>
                             <p className={styles.menu__text}>Личный кабинет</p>
                         </a>
-                    </li>
-                </ul>
+                    </div>
+                <div className={styles.menu__logo}>
+                    <a href="/" className={styles.menu__link}>
+                        <Logo/>
+                    </a>
+                </div>
             </nav>
         </div>
     )
