@@ -1,4 +1,4 @@
-import styles from './header.module.css'
+import styles from './Header.module.css'
 import {
     Logo,
     BurgerIcon,
@@ -8,7 +8,7 @@ import {
 
 const Header = () => {
     return (
-        <div className={styles.header}>
+        <header className={styles.header}>
             <nav className={styles.menu}>
                     <div className={`${styles.menu__item} ${styles.menu__item_left}`}>
                         <a href="/" className={`${styles.menu__link} ${styles.menu__link_left}`}>
@@ -32,7 +32,7 @@ const Header = () => {
                     </a>
                 </div>
             </nav>
-        </div>
+        </header>
     )
 }
 
