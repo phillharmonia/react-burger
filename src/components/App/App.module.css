@@ -15,3 +15,10 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
+.main {
+  max-width: 1240px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 40px;
+  margin: 0 auto;
+}
