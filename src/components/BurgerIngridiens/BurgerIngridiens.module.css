@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    max-height: 920px;
 }
 .title {
 
@@ -10,4 +11,51 @@
 .nav {
     display: flex;
     flex-direction: row;
+}
+.ingridients {
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+
+}
+
+.ingridient_items {
+    display: grid;
+    grid-template-columns: repeat(2,272px);
+    column-gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.ingridient_item {
+    list-style: none;
+    height: 208px;
+    cursor: pointer;
+    position: relative;
+}
+.price {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ingridient_list {
+    height: calc(100vh - 324px);
+    min-height: 208px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+}
+.ingridient_list::-webkit-scrollbar {
+    width: 8px;
+    height: auto;
+    background-color: #2F2F37;
+}
+.ingridient_list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
 }
