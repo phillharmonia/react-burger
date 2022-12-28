@@ -13,7 +13,7 @@ const BurgerConstructor = () => {
 
     return (
         <section className={`${styles.section} pt-25`}>
-            <div className={`${styles.constructor}`}>
+            <div className={`${styles.constructor} ml-4`}>
                 <ConstructorElement
                     type="top"
                     isLocked={true}
@@ -25,10 +25,9 @@ const BurgerConstructor = () => {
                 <ul className={`${styles.constructor_list}`}>
                     <> {data.map(props =>
                         props.type === 'sauce' || props.type === 'main' &&
-                        <li className={`mb-4`} key={props._id}>
+                        <li key={props._id}>
                             <DragIcon type="primary"/>
                             <ConstructorElement
-                                type="top"
                                 isLocked={false}
                                 text={props.name}
                                 price={props.price}

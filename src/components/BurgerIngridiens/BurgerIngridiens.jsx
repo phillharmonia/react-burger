@@ -10,7 +10,7 @@ const BurgerIngridiens = () => {
     return (
         <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
-            <nav className={`${styles.nav}`}>
+            <nav className={`${styles.nav} mb-10`}>
                 <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
                     Булки
                 </Tab>
@@ -22,7 +22,7 @@ const BurgerIngridiens = () => {
                 </Tab>
             </nav>
             <div className={`${styles.ingridient_list}`}>
-            <div className={`${styles.ingridients} mt-10 mb-10`}>
+            <div className={`${styles.ingridients} mb-10`}>
                 <h3 className={`text text_type_main-medium mb-6`}>Булки</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     <> { data.map(props =>

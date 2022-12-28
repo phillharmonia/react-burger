@@ -1,5 +1,6 @@
 .section {
     max-width: 600px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -17,13 +18,15 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
-
+}
+.ingridients:last-of-type {
+    margin: 0;
 }
 
 .ingridient_items {
     display: grid;
     grid-template-columns: repeat(2,272px);
+    row-gap: 32px;
     column-gap: 24px;
     margin: 0;
     padding: 0;
