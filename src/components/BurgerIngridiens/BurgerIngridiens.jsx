@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const BurgerIngridiens = () => {
     const [current, setCurrent] = React.useState('bun')
     return (
-        <section className={`${styles.section} pt-10`}>
+        <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
             <nav className={`${styles.nav}`}>
                 <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
@@ -23,10 +23,9 @@ const BurgerIngridiens = () => {
             </nav>
             <div className={`${styles.ingridient_list}`}>
             <div className={`${styles.ingridients} mt-10 mb-10`}>
-                <h3 className={`text text_type_main-large mb-6`}>Булки</h3>
+                <h3 className={`text text_type_main-medium mb-6`}>Булки</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     <> { data.map(props =>
-
                             props.type === 'bun' &&
                                 <li className={styles.ingridient_item} key={props._id}>
                                     <img className={styles.image} src={props.image} alt={props.name}/>
@@ -42,7 +41,7 @@ const BurgerIngridiens = () => {
                 </ul>
             </div>
             <div className={`${styles.ingridients} mt-10 mb-10`}>
-                <h3 className={`text text_type_main-large mb-6`}>Соусы</h3>
+                <h3 className={`text text_type_main-medium mb-6`}>Соусы</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     { data.map(props =>
                         props.type === 'sauce' &&
@@ -59,7 +58,7 @@ const BurgerIngridiens = () => {
                 </ul>
             </div>
             <div className={`${styles.ingridients} mt-10 mb-10`}>
-                <h3 className={`text text_type_main-large mb-6`}>Начинки</h3>
+                <h3 className={`text text_type_main-medium mb-6`}>Начинки</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     { data.map(props =>
                         props.type === 'main' &&

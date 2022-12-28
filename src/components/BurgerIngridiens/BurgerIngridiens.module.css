@@ -48,8 +48,6 @@
     min-height: 208px;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-color: #6969dd #e0e0e0;
-    scrollbar-width: thin;
 }
 .ingridient_list::-webkit-scrollbar {
     width: 8px;
