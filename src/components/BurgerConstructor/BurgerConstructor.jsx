@@ -8,6 +8,7 @@ import {
     DragIcon
 }
     from '@ya.praktikum/react-developer-burger-ui-components'
+import curicon from '../../images/curicon.svg'
 
 const BurgerConstructor = () => {
 
@@ -51,7 +52,7 @@ const BurgerConstructor = () => {
             <div className={`${styles.counter} mt-10`}>
                     <div className={styles.price_container}>
                         <p className='text text_type_digits-medium'>610</p>
-                        <CurrencyIcon type="primary"/>
+                        <img src={curicon} alt="currency icon" />
                     </div>
                     <Button type="primary" size="large">Оформить заказ</Button>
             </div>
