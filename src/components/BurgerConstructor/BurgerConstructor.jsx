@@ -1,5 +1,4 @@
 import React from 'react';
-import data from '../../utils/data.js'
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
@@ -10,7 +9,7 @@ import {
     from '@ya.praktikum/react-developer-burger-ui-components'
 import curicon from '../../images/curicon.svg'
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ( {ingridients} ) => {
 
     return (
         <section className={`${styles.section} pt-25`}>
@@ -24,7 +23,7 @@ const BurgerConstructor = () => {
                     extraClass="ml-8"
                 />
                 <ul className={`${styles.constructor_list}`}>
-                    <> {data.map(props =>
+                    <> {ingridients.map(props =>
                         props.type === 'sauce' || props.type === 'main' &&
                         <li key={props._id}>
                             <DragIcon type="primary"/>
