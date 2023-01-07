@@ -3,10 +3,12 @@ import styles from "./App.module.css"
 import Header from "../Header/Header.jsx"
 import  BurgerIngridiens from "../BurgerIngridiens/BurgerIngridiens.jsx"
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.jsx"
-import {Api, CheckRes} from "../Api/Api.jsx"
+import {Api, CheckRes} from "../../utils/Api.jsx"
+import Modal from "../Modal/Modal.jsx"
 
 function App() {
     const [data, setData] = useState([])
+    const [modalActive, setModalActive] = useState(true)
 
     useEffect(() => {
         fetch(`${Api.url}`)
@@ -24,6 +26,9 @@ function App() {
                 <BurgerIngridiens ingridients={data} />
                 <BurgerConstructor ingridients={data} />
             </main>
+        <Modal active={modalActive} setActive={setModalActive}>
+
+        </Modal>
         </div>
     );
 }

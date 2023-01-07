@@ -53,7 +53,7 @@ const BurgerConstructor = ( {ingridients} ) => {
                         <p className='text text_type_digits-medium'>610</p>
                         <img src={curicon} alt="currency icon" />
                     </div>
-                    <Button type="primary" size="large">Оформить заказ</Button>
+                    <Button type="primary" htmlType={'button'} size="large">Оформить заказ</Button>
             </div>
         </section>
     )
