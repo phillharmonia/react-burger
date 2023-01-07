@@ -7,7 +7,6 @@ import {Api, CheckRes} from "../Api/Api.jsx"
 
 function App() {
     const [data, setData] = useState([])
-    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         fetch(`${Api.url}`)
@@ -16,7 +15,6 @@ function App() {
                 setData(result.data)
             })
             .catch(error => {console.log(error)})
-            .finally(() => setIsLoaded(true))
         }, [])
 
     return (
