@@ -8,7 +8,6 @@ import Modal from "../Modal/Modal.jsx"
 
 function App() {
     const [data, setData] = useState([])
-    const [modalActive, setModalActive] = useState(true)
 
     useEffect(() => {
         fetch(`${Api.url}`)
@@ -26,9 +25,6 @@ function App() {
                 <BurgerIngridiens ingridients={data} />
                 <BurgerConstructor ingridients={data} />
             </main>
-        <Modal active={modalActive} setActive={setModalActive}>
-
-        </Modal>
         </div>
     );
 }

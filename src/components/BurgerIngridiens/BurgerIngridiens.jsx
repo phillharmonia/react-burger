@@ -1,11 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Counter, CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
 import ingridientPropTypes from "../../utils/PropTypes";
 import PropTypes from 'prop-types';
+import Modal from "../Modal/Modal";
+import IngridientDetails from "../IngridientDetails/IngridientDetails";
 
 const BurgerIngridiens = ({ingridients}) => {
     const [current, setCurrent] = React.useState('bun')
+    const [popupActive, setPopupActive] = useState(false)
+    const [details, setDetails] = useState({})
+    const openPopup = () => {
+        setPopupActive(true)
+    }
+    const getDetails = (props) => {
+        setDetails(props)
+    }
     return (
         <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
@@ -26,7 +36,7 @@ const BurgerIngridiens = ({ingridients}) => {
                 <ul className={`${styles.ingridient_items}`}>
                     <> { ingridients.map(props =>
                             props.type === 'bun' &&
-                                <li className={styles.ingridient_item} key={props._id}>
+                                <li className={styles.ingridient_item} key={props._id} onClick={()=> {openPopup();getDetails(props)}}>
                                     <img className={styles.image} src={props.image} alt={props.name}/>
                                     <div className={`${styles.price} mt-1 mb-1`}>
                                         <p className={`text text_type_digits-default`}>{props.price}</p>
@@ -44,7 +54,7 @@ const BurgerIngridiens = ({ingridients}) => {
                 <ul className={`${styles.ingridient_items}`}>
                     { ingridients.map(props =>
                         props.type === 'sauce' &&
-                        <li className={styles.ingridient_item} key={props._id}>
+                        <li className={styles.ingridient_item} key={props._id} onClick={()=> {openPopup();getDetails(props)}}>
                             <img className={styles.image} src={props.image} alt={props.name}/>
                             <div className={`${styles.price} mt-1 mb-1`}>
                                 <p className={`text text_type_digits-default`}>{props.price}</p>
@@ -61,7 +71,7 @@ const BurgerIngridiens = ({ingridients}) => {
                 <ul className={`${styles.ingridient_items}`}>
                     { ingridients.map(props =>
                         props.type === 'main' &&
-                        <li className={styles.ingridient_item} key={props._id}>
+                        <li className={styles.ingridient_item} key={props._id} onClick={()=> {openPopup();getDetails(props)}}>
                             <img className={styles.image} src={props.image} alt={props.name}/>
                             <div className={`${styles.price} mt-1 mb-1`}>
                                 <p className={`text text_type_digits-default`}>{props.price}</p>
@@ -74,6 +84,16 @@ const BurgerIngridiens = ({ingridients}) => {
                 </ul>
             </div>
             </div>
+            {
+                popupActive && (
+                    <Modal closePopup={() => {
+                        setPopupActive(false)
+                    }
+                    }>
+                        <IngridientDetails data={details}/>
+                    </Modal>
+                )
+            }
         </section>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
@@ -8,9 +8,16 @@ import {
 }
     from '@ya.praktikum/react-developer-burger-ui-components'
 import curicon from '../../images/curicon.svg'
+import Modal from '../Modal/Modal.jsx'
+import OrderDetails from "../OrderDetails/OrderDetails.jsx";
+import PropTypes from 'prop-types';
+import ingridientPropTypes from "../../utils/PropTypes";
 
-const BurgerConstructor = ( {ingridients} ) => {
-
+const BurgerConstructor = ({ingridients}) => {
+    const [popupActive, setPopupActive] = useState(false)
+    const openPopup = () => {
+        setPopupActive(true)
+    }
     return (
         <section className={`${styles.section} pt-25`}>
             <div className={`${styles.constructor} ml-4`}>
@@ -49,14 +56,28 @@ const BurgerConstructor = ( {ingridients} ) => {
                 />
             </div>
             <div className={`${styles.counter} mt-10`}>
-                    <div className={styles.price_container}>
-                        <p className='text text_type_digits-medium'>610</p>
-                        <img src={curicon} alt="currency icon" />
-                    </div>
-                    <Button type="primary" htmlType={'button'} size="large">Оформить заказ</Button>
+                <div className={styles.price_container}>
+                    <p className='text text_type_digits-medium'>610</p>
+                    <img src={curicon} alt="currency icon"/>
+                </div>
+                <Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>
             </div>
+            {
+                popupActive && (
+                    <Modal closePopup={() => {
+                        setPopupActive(false)
+                    }
+                    }>
+                        <OrderDetails />
+                    </Modal>
+                )
+            }
         </section>
     )
+}
+BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(ingridientPropTypes.isRequired).isRequired,
+    onClick: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
