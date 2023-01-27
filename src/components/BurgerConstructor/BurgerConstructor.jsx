@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
@@ -12,12 +12,14 @@ import Modal from '../Modal/Modal.jsx'
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import PropTypes from 'prop-types';
 import ingridientPropTypes from "../../utils/PropTypes";
+import {ConstructorContext} from "../../services/ConstructorContext";
 
-const BurgerConstructor = ({ingridients}) => {
+const BurgerConstructor = () => {
     const [popupActive, setPopupActive] = useState(false)
     const openPopup = () => {
         setPopupActive(true)
     }
+    const ingridients = useContext(ConstructorContext)
     return (
         <section className={`${styles.section} pt-25`}>
             <div className={`${styles.constructor} ml-4`}>
