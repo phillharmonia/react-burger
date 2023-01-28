@@ -3,14 +3,19 @@ import styles from "./App.module.css"
 import Header from "../Header/Header.jsx"
 import BurgerIngridiens from "../BurgerIngridiens/BurgerIngridiens.jsx"
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor.jsx"
-import { Api, CheckRes } from "../../utils/Api.jsx"
+import { API_INGRIDIENTS, CheckRes } from "../../utils/Api.jsx"
 import { ConstructorContext } from "../../services/ConstructorContext";
 
 function App() {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        fetch(`${Api.url}`)
+        fetch(API_INGRIDIENTS, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            )
             .then(CheckRes)
             .then((result) => {
                 setData(result.data)

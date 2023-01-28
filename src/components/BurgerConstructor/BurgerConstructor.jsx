@@ -1,8 +1,7 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
-    CurrencyIcon,
     Button,
     DragIcon
 }
@@ -13,24 +12,52 @@ import OrderDetails from "../OrderDetails/OrderDetails.jsx";
 import PropTypes from 'prop-types';
 import ingridientPropTypes from "../../utils/PropTypes";
 import {ConstructorContext} from "../../services/ConstructorContext";
+import {API_ORDER, CheckRes} from "../../utils/Api";
 
 const BurgerConstructor = () => {
     const [popupActive, setPopupActive] = useState(false)
+    const [orderNum, setOrderNum] = useState({
+        name: '',
+        order: {
+            number: ''
+        },
+        success: false
+    });
     const openPopup = () => {
         setPopupActive(true)
+        fetch(API_ORDER, {
+            method: "POST",
+            body: JSON.stringify({
+                ingredients: ingridientsId,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+        }
+        })
+            .then(CheckRes)
+            .then((data) => {
+                setOrderNum(data)
+            })
+            .catch(error => {console.log(error)})
     }
-    const ingridients = useContext(ConstructorContext)
+    const ingridients = useContext(ConstructorContext);
+    const ingridientsId = useMemo(() => ingridients.map((item) => item._id), [ingridients])
+    const ingridietnsWithoutBun = useMemo(() => ingridients.filter((item) => item.type !== 'bun'))
+    const bun = useMemo(() => ingridients.find((item) => item.type === 'bun'), [ingridients])
+    const totalPrice = useMemo(() => {
+        return ingridietnsWithoutBun.reduce((total,item) => total + item.price, bun ? bun.price * 2 : 0)
+    }, [ingridients, bun])
     return (
         <section className={`${styles.section} pt-25`}>
             <div className={`${styles.constructor} ml-4`}>
-                <ConstructorElement
+                {bun && <ConstructorElement
                     type="top"
                     isLocked={true}
-                    text="Краторная булка N-200i (верх)"
-                    price={200}
-                    thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                    text={`${bun.name} (верх)`}
+                    price={bun.price}
+                    thumbnail={bun.image_mobile}
                     extraClass="ml-8"
-                />
+                />}
                 <ul className={`${styles.constructor_list}`}>
                     <> {ingridients.map(props =>
                         props.type === 'sauce' || props.type === 'main' &&
@@ -48,18 +75,18 @@ const BurgerConstructor = () => {
                     }
                     </>
                 </ul>
-                <ConstructorElement
+                {bun && <ConstructorElement
                     type="bottom"
                     isLocked={true}
-                    text="Краторная булка N-200i (низ)"
-                    price={200}
-                    thumbnail={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                    text={`${bun.name} (низ)`}
+                    price={bun.price}
+                    thumbnail={bun.image_mobile}
                     extraClass="ml-8"
-                />
+                />}
             </div>
             <div className={`${styles.counter} mt-10`}>
                 <div className={styles.price_container}>
-                    <p className='text text_type_digits-medium'>610</p>
+                    <p className='text text_type_digits-medium'>{totalPrice}</p>
                     <img src={curicon} alt="currency icon"/>
                 </div>
                 <Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>
@@ -70,16 +97,13 @@ const BurgerConstructor = () => {
                         setPopupActive(false)
                     }
                     }>
-                        <OrderDetails />
+                        <OrderDetails orderNumber={orderNum} />
                     </Modal>
                 )
             }
         </section>
     )
 }
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingridientPropTypes.isRequired).isRequired,
-    onClick: PropTypes.func.isRequired
-}
+
 
 export default BurgerConstructor;

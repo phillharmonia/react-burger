@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import IngridientDetails from "../IngridientDetails/IngridientDetails";
 import {ConstructorContext} from "../../services/ConstructorContext";
+import { API_ORDER, CheckRes} from "../../utils/Api";
 
 const BurgerIngridiens = () => {
     const [current, setCurrent] = React.useState('bun')
     const [popupActive, setPopupActive] = useState(false)
-    const [details, setDetails] = useState({})
-    const ingridients = useContext(ConstructorContext)
+    const [details, setDetails] = useState({});
+    const ingridients = useContext(ConstructorContext);
     const openPopup = () => {
         setPopupActive(true)
     }

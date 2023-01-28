@@ -1,9 +1,5 @@
-export const Api = {
-    url: 'https://norma.nomoreparties.space/api/ingredients',
-    headers: {
-        'Content-Type': 'aplication.json'
-    }
-}
+export const API_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredients'
+export const API_ORDER = 'https://norma.nomoreparties.space/api/orders'
 export const CheckRes = result => {
         if (result.ok) {
             return result.json();
