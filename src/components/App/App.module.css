@@ -1,0 +1,24 @@
+.App {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 1920px;
+
+  font-family: 'JetBrains Mono',Arial,sans-serif;
+
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+.main {
+  max-width: 1240px;
+  min-height: 912px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 40px;
+  margin: 0 auto;
+}

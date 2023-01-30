@@ -1,0 +1,28 @@
+.modal {
+    max-width: 720px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #1C1C21;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    border-radius: 40px;
+    transform: translate(-50%, -50%);
+    transition: 0.5s ease-in-out;
+}
+
+.content {
+    width: 720px;
+    display: flex;
+    flex-direction: column;
+}
+
+.close {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}
