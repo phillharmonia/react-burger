@@ -1,18 +1,23 @@
-import React, {useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Counter, CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
 import ingridientPropTypes from "../../utils/PropTypes";
 import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import IngridientDetails from "../IngridientDetails/IngridientDetails";
-import {ConstructorContext} from "../../services/ConstructorContext";
-import { API_ORDER, CheckRes} from "../../utils/Api";
+import {useDispatch, useSelector} from "react-redux";
+import {getIngridients} from "../../services/actions/Ingridients";
 
 const BurgerIngridiens = () => {
     const [current, setCurrent] = React.useState('bun')
     const [popupActive, setPopupActive] = useState(false)
     const [details, setDetails] = useState({});
-    const ingridients = useContext(ConstructorContext);
+    const dispatch = useDispatch()
+    const ingridients = useSelector(store => store.ingridients.ingridients)
+    useEffect(() => {
+        dispatch(
+            getIngridients())
+    },[dispatch])
     const openPopup = () => {
         setPopupActive(true)
     }
@@ -87,16 +92,6 @@ const BurgerIngridiens = () => {
                 </ul>
             </div>
             </div>
-            {
-                popupActive && (
-                    <Modal closePopup={() => {
-                        setPopupActive(false)
-                    }
-                    }>
-                        <IngridientDetails data={details}/>
-                    </Modal>
-                )
-            }
         </section>
     )
 }

@@ -6,3 +6,12 @@ export const CheckRes = result => {
         }
         return Promise.reject(`Ошибка ${result.status}`);
 }
+export const getIngridientsAPI = async () => {
+    const data = await fetch(API_INGRIDIENTS, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+    )
+        return CheckRes(data)
+        }
