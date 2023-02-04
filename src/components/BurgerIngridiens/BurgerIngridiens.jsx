@@ -45,6 +45,8 @@ const BurgerIngridiens = () => {
             case mainInView:
                 setCurrent('main')
                 break;
+            default:
+                break;
         }
     }
     const onTabClick = (tab) => {
