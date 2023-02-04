@@ -7,6 +7,7 @@ import Modal from "../Modal/Modal";
 import IngridientDetails from "../IngridientDetails/IngridientDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngridients} from "../../services/actions/Ingridients";
+import {useInView} from "react-intersection-observer";
 
 const BurgerIngridiens = () => {
     const [current, setCurrent] = React.useState('bun')
@@ -24,23 +25,53 @@ const BurgerIngridiens = () => {
     const getDetails = (props) => {
         setDetails(props)
     }
+    const { ref: bunRef, inView: bunInView } = useInView({
+        threshold: 0.5
+    })
+    const { ref: sauceRef, inView: sauceInView } = useInView({
+        threshold: 0.5
+    })
+    const {ref: mainRef, inView: mainInView} = useInView({
+        threshold: 0.5
+    })
+    const positionScroll = (evt) => {
+        switch (evt) {
+            case bunInView:
+                setCurrent('bun')
+                break;
+            case sauceInView:
+                setCurrent('sauce')
+                break;
+            case mainInView:
+                setCurrent('main')
+                break;
+        }
+    }
+    const onTabClick = (tab) => {
+        setCurrent(tab);
+        const place = document.getElementById(tab)
+        place.scrollIntoView({behavior: "smooth"})
+    }
+    useEffect(() => {
+        positionScroll()
+    },[bunInView, sauceInView, mainInView])
     return (
         <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
             <nav className={`${styles.nav} mb-10`}>
-                <Tab value="buns" active={current === 'buns'} onClick={setCurrent}>
+                <Tab href="#bun" value="bun" active={current === 'bun'} onClick={() => onTabClick('bun')}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === 'sauce'} onClick={setCurrent}>
+                <Tab href="#sauce" value="sauce" active={current === 'sauce'} onClick={() => onTabClick('sauce')}>
                     Соусы
                 </Tab>
-                <Tab value="main" active={current === 'main'} onClick={setCurrent}>
+                <Tab href="#main" value="main" active={current === 'main'} onClick={() => onTabClick('main')}>
                     Начинки
                 </Tab>
             </nav>
             <div className={`${styles.ingridient_list}`}>
             <div className={`${styles.ingridients} mb-10`}>
-                <h3 className={`text text_type_main-medium mb-6`}>Булки</h3>
+                <h3 ref={bunRef} id='bun' className={`text text_type_main-medium mb-6`}>Булки</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     <> { ingridients.map(props =>
                             props.type === 'bun' &&
@@ -58,7 +89,7 @@ const BurgerIngridiens = () => {
                 </ul>
             </div>
             <div className={`${styles.ingridients} mt-10 mb-10`}>
-                <h3 className={`text text_type_main-medium mb-6`}>Соусы</h3>
+                <h3 ref={sauceRef} id='sauce' className={`text text_type_main-medium mb-6`}>Соусы</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     { ingridients.map(props =>
                         props.type === 'sauce' &&
@@ -75,7 +106,7 @@ const BurgerIngridiens = () => {
                 </ul>
             </div>
             <div className={`${styles.ingridients} mt-10 mb-10`}>
-                <h3 className={`text text_type_main-medium mb-6`}>Начинки</h3>
+                <h3 ref={mainRef} id='main' className={`text text_type_main-medium mb-6`}>Начинки</h3>
                 <ul className={`${styles.ingridient_items}`}>
                     { ingridients.map(props =>
                         props.type === 'main' &&
