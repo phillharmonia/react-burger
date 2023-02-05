@@ -9,8 +9,6 @@ import {
 import curicon from '../../images/curicon.svg'
 import Modal from '../Modal/Modal.jsx'
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import PropTypes from 'prop-types';
-import ingridientPropTypes from "../../utils/PropTypes";
 import {ConstructorContext} from "../../services/ConstructorContext";
 import {API_ORDER, CheckRes} from "../../utils/Api";
 
