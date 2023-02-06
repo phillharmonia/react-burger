@@ -9,8 +9,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {getIngridients} from "../../services/actions/Ingridients";
 import {useInView} from "react-intersection-observer";
 import {closeIngridientDetails, getIngridientDetails} from "../../services/actions/IngridientsDetails";
+import {BurgerIngridient} from "./BurgerIngridient";
 
-const BurgerIngridiens = () => {
+const BurgerIngridients = () => {
     const [current, setCurrent] = React.useState('bun')
     const [popupActive, setPopupActive] = useState(false)
     const dispatch = useDispatch()
@@ -77,18 +78,19 @@ const BurgerIngridiens = () => {
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'bun' &&
-                            <li className={styles.ingridient_item} key={props._id} onClick={() => {
+                            <li className={styles.ingridient_item}
+                                onClick={() => {
                                 openPopup();
                                 getDetails(props)
-                            }}>
-                                <img className={styles.image} src={props.image} alt={props.name}/>
-                                <div className={`${styles.price} mt-1 mb-1`}>
-                                    <p className={`text text_type_digits-default`}>{props.price}</p>
-                                    <CurrencyIcon type='primary'/>
-                                </div>
-                                <p className={`text text_type_main-default`}>{props.name}</p>
-                                <Counter count={1} size="default"/>
-                            </li>)
+                            }}
+                                key={props._id}>
+                                <BurgerIngridient
+                                    name={props.name}
+                                    price={props.price}
+                                    image={props.image}
+                                />
+                            </li>
+                        )
                         }
                         </>
                     </ul>
@@ -96,41 +98,45 @@ const BurgerIngridiens = () => {
                 <div className={`${styles.ingridients} mt-10 mb-10`}>
                     <h3 ref={sauceRef} id='sauce' className={`text text_type_main-medium mb-6`}>Соусы</h3>
                     <ul className={`${styles.ingridient_items}`}>
-                        {ingridients.map(props =>
+                        <> {ingridients.map(props =>
                             props.type === 'sauce' &&
-                            <li className={styles.ingridient_item} key={props._id} onClick={() => {
-                                openPopup();
-                                getDetails(props)
-                            }}>
-                                <img className={styles.image} src={props.image} alt={props.name}/>
-                                <div className={`${styles.price} mt-1 mb-1`}>
-                                    <p className={`text text_type_digits-default`}>{props.price}</p>
-                                    <CurrencyIcon type='primary'/>
-                                </div>
-                                <p className={`text text_type_main-default`}>{props.name}</p>
-                                <Counter count={1} size="default"/>
-                            </li>)
+                            <li className={styles.ingridient_item}
+                                onClick={() => {
+                                    openPopup();
+                                    getDetails(props)
+                                }}
+                                key={props._id}>
+                                <BurgerIngridient
+                                    name={props.name}
+                                    price={props.price}
+                                    image={props.image}
+                                />
+                            </li>
+                        )
                         }
+                        </>
                     </ul>
                 </div>
                 <div className={`${styles.ingridients} mt-10 mb-10`}>
                     <h3 ref={mainRef} id='main' className={`text text_type_main-medium mb-6`}>Начинки</h3>
                     <ul className={`${styles.ingridient_items}`}>
-                        {ingridients.map(props =>
+                        <> {ingridients.map(props =>
                             props.type === 'main' &&
-                            <li className={styles.ingridient_item} key={props._id} onClick={() => {
-                                openPopup();
-                                getDetails(props)
-                            }}>
-                                <img className={styles.image} src={props.image} alt={props.name}/>
-                                <div className={`${styles.price} mt-1 mb-1`}>
-                                    <p className={`text text_type_digits-default`}>{props.price}</p>
-                                    <CurrencyIcon type='primary'/>
-                                </div>
-                                <p className={`text text_type_main-default`}>{props.name}</p>
-                                <Counter count={1} size="default"/>
-                            </li>)
+                            <li className={styles.ingridient_item}
+                                onClick={() => {
+                                    openPopup();
+                                    getDetails(props)
+                                }}
+                                key={props._id}>
+                                <BurgerIngridient
+                                    name={props.name}
+                                    price={props.price}
+                                    image={props.image}
+                                />
+                            </li>
+                        )
                         }
+                        </>
                     </ul>
                 </div>
                 {
@@ -140,7 +146,7 @@ const BurgerIngridiens = () => {
                             dispatch(closeIngridientDetails())
                         }
                         }>
-                            <IngridientDetails />
+                            <IngridientDetails/>
                         </Modal>
                     )
                 }
@@ -151,4 +157,4 @@ const BurgerIngridiens = () => {
 ingridientPropTypes.protoType = {
     ingredient: PropTypes.arrayOf(ingridientPropTypes.isRequired)
 }
-export default BurgerIngridiens;
+export default BurgerIngridients;
