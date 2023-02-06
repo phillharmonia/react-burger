@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Counter, CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components'
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
 import ingridientPropTypes from "../../utils/PropTypes";
 import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import IngridientDetails from "../IngridientDetails/IngridientDetails";
-import {useDispatch, useSelector} from "react-redux";
-import {getIngridients} from "../../services/actions/Ingridients";
-import {useInView} from "react-intersection-observer";
-import {closeIngridientDetails, getIngridientDetails} from "../../services/actions/IngridientsDetails";
-import {BurgerIngridient} from "./BurgerIngridient";
+import { useDispatch, useSelector } from "react-redux";
+import { getIngridients } from "../../services/actions/Ingridients";
+import { useInView } from "react-intersection-observer";
+import { closeIngridientDetails, getIngridientDetails } from "../../services/actions/IngridientsDetails";
+import { BurgerIngridient } from "./BurgerIngridient";
 
 const BurgerIngridients = () => {
     const [current, setCurrent] = React.useState('bun')
