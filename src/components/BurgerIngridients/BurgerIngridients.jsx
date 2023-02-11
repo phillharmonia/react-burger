@@ -38,8 +38,8 @@ const BurgerIngridients = () => {
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('main')
     })
-    const positionScroll = (evt) => {
-        switch (evt) {
+    const positionScroll = () => {
+        switch (true) {
             case bunInView:
                 setCurrent('bun')
                 break;
