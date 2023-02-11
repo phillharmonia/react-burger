@@ -5,7 +5,7 @@ import { useDrag } from "react-dnd";
 
 
 export const BurgerIngridient = ({ ingridient }) => {
-    const { image, name, price } = ingridient
+    const { image, name, price, _id } = ingridient
     const [{ opacity }, dragRef] = useDrag({
         type: "ingridients",
         item: { ingridient },
@@ -14,7 +14,7 @@ export const BurgerIngridient = ({ ingridient }) => {
         })
     })
     return (
-        <li className={styles.ingridient_item} ref={dragRef} style={{ opacity }}>
+        <li className={styles.ingridient_item} key={_id} ref={dragRef} style={{ opacity }}>
             <img className={styles.image} src={image} alt={name}/>
             <div className={`${styles.price} mt-1 mb-1`}>
                 <p className={`text text_type_digits-default`}>{price}</p>

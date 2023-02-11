@@ -15,7 +15,7 @@ import {useDrop} from "react-dnd";
 import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
 import { v4 as uuid4} from "uuid"
 import {BurgerConstructorItem} from "./BurgerConstructor-items";
-import {getOrder} from "../../services/actions/OrderDetails";
+import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
 
 const BurgerConstructor = () => {
     const [popupActive, setPopupActive] = useState(false)
@@ -74,7 +74,7 @@ const BurgerConstructor = () => {
                             (props.type === 'sauce' || props.type === 'main') &&
                             <BurgerConstructorItem
                                 props={props}
-                                uuid={props.uuid}
+                                key={props.uuid}
                                 index={index}
                                 moveListItem={moveIngridientsListItem}
                             />
@@ -102,6 +102,9 @@ const BurgerConstructor = () => {
                 popupActive && (
                     <Modal closePopup={() => {
                         setPopupActive(false)
+                        dispatch({
+                            type: ORDER_CLOSE
+                        })
                     }
                     }>
                         <OrderDetails />

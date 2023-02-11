@@ -44,7 +44,7 @@ export const BurgerConstructorItem = ({props, index, moveListItem, uuid}) => {
    dragRef(dropRef(ref))
     return (
         <>
-            <li style={{opacity}} ref={ref}>
+            <li style={{opacity}} ref={ref} key={props.uuid}>
                 <DragIcon type="primary"/>
                 <ConstructorElement
                     isLocked={false}
