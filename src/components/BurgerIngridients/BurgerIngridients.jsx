@@ -27,13 +27,16 @@ const BurgerIngridients = () => {
         dispatch(getIngridientDetails(props))
     }
     const {ref: bunRef, inView: bunInView} = useInView({
-        threshold: 0.5
+        threshold: 0.5,
+        onChange: (inView) => inView && setCurrent('bun')
     })
     const {ref: sauceRef, inView: sauceInView} = useInView({
-        threshold: 0.5
+        threshold: 0.5,
+        onChange: (inView) => inView && setCurrent('sauce')
     })
     const {ref: mainRef, inView: mainInView} = useInView({
-        threshold: 0.5
+        threshold: 0.5,
+        onChange: (inView) => inView && setCurrent('main')
     })
     const positionScroll = (evt) => {
         switch (evt) {
@@ -73,8 +76,8 @@ const BurgerIngridients = () => {
                 </Tab>
             </nav>
             <div className={`${styles.ingridient_list}`}>
-                <div className={`${styles.ingridients} mb-10`}>
-                    <h3 ref={bunRef} id='bun' className={`text text_type_main-medium mb-6`}>Булки</h3>
+                <div ref={bunRef} id='bun' className={`${styles.ingridients} mb-10`}>
+                    <h3 className={`text text_type_main-medium mb-6`}>Булки</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'bun' &&
@@ -94,8 +97,8 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                <div className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3 ref={sauceRef} id='sauce' className={`text text_type_main-medium mb-6`}>Соусы</h3>
+                <div ref={sauceRef} id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
+                    <h3  className={`text text_type_main-medium mb-6`}>Соусы</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'sauce' &&
@@ -115,8 +118,8 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                <div className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3 ref={mainRef} id='main' className={`text text_type_main-medium mb-6`}>Начинки</h3>
+                <div ref={mainRef} id='main' className={`${styles.ingridients} mt-10 mb-10`}>
+                    <h3  className={`text text_type_main-medium mb-6`}>Начинки</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'main' &&
