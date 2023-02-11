@@ -37,9 +37,5 @@ const Modal = ( {popupActive, children, closePopup} ) => {
 </>
     , modalRoot)
 }
-Modal.propTypes = {
-    closePopup: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-    popupActive: PropTypes.bool.isRequired
-};
+
 export default Modal;

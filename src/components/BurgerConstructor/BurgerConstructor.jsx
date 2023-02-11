@@ -1,90 +1,99 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, {useState, useMemo, useCallback} from 'react';
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
     Button,
-    DragIcon
 }
     from '@ya.praktikum/react-developer-burger-ui-components'
 import curicon from '../../images/curicon.svg'
 import Modal from '../Modal/Modal.jsx'
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import {ConstructorContext} from "../../services/ConstructorContext";
-import {API_ORDER, CheckRes} from "../../utils/Api";
+import {API_ORDER, CheckRes, getOrderAPI} from "../../utils/Api";
+import {useDispatch, useSelector} from "react-redux";
+
+import {useDrop} from "react-dnd";
+import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
+import { v4 as uuid4} from "uuid"
+import {BurgerConstructorItem} from "./BurgerConstructor-items";
+import {getOrder} from "../../services/actions/OrderDetails";
 
 const BurgerConstructor = () => {
     const [popupActive, setPopupActive] = useState(false)
-    const [orderNum, setOrderNum] = useState({
-        name: '',
-        order: {
-            number: ''
-        },
-        success: false
-    });
     const openPopup = () => {
         setPopupActive(true)
-        fetch(API_ORDER, {
-            method: "POST",
-            body: JSON.stringify({
-                ingredients: ingridientsId,
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-        }
-        })
-            .then(CheckRes)
-            .then((data) => {
-                setOrderNum(data)
-            })
-            .catch(error => {console.log(error)})
+        dispatch(getOrder(ingridientsId))
     }
-    const ingridients = useContext(ConstructorContext);
+    const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
+    const bun = useSelector(store => store.ingridientsConstructor.bun)
     const ingridientsId = useMemo(() => ingridients.map((item) => item._id), [ingridients])
-    const ingridietnsWithoutBun = useMemo(() => ingridients.filter((item) => item.type !== 'bun'))
-    const bun = useMemo(() => ingridients.find((item) => item.type === 'bun'), [ingridients])
     const totalPrice = useMemo(() => {
-        return ingridietnsWithoutBun.reduce((total,item) => total + item.price, bun ? bun.price * 2 : 0)
+        return ingridients.reduce((total,item) => total + item.price, bun ? bun.price * 2 : 0)
     }, [ingridients, bun])
+    const dispatch = useDispatch()
+    const [, dropRef] = useDrop({
+        accept: "ingridients",
+        drop(item) {
+            item.uuid = uuid4()
+            if (item.ingridient.type === 'bun') {
+                dispatch({
+                    type: ADD_BUN,
+                    data: item.ingridient
+                })
+            }
+            else {
+                dispatch({
+                    type: ADD_INGRIDIENT,
+                    data: {...item.ingridient, uuid: uuid4()}
+                })
+            }
+        }
+    })
+    const moveIngridientsListItem = useCallback((dragIndex, hoverIndex) => {
+        const dragItem = ingridients[dragIndex];
+        const hoverItem = ingridients[hoverIndex];
+        const movedIngridients = [...ingridients];
+        movedIngridients[dragIndex] = hoverItem;
+        movedIngridients[hoverIndex] = dragItem;
+        dispatch({type: MOVE_INGRIDIENT, sort: movedIngridients})
+    },[dispatch, ingridients])
     return (
         <section className={`${styles.section} pt-25`}>
-            <div className={`${styles.constructor} ml-4`}>
-                {bun && <ConstructorElement
+            <div className={`${styles.constructor} ml-4`} ref={dropRef}>
+                {bun.length === 0 ? null : (<ConstructorElement
                     type="top"
                     isLocked={true}
                     text={`${bun.name} (верх)`}
                     price={bun.price}
                     thumbnail={bun.image_mobile}
                     extraClass="ml-8"
-                />}
-                <ul className={`${styles.constructor_list}`}>
-                    <> {ingridients.map(props =>
-                        props.type === 'sauce' || props.type === 'main' &&
-                        <li key={props._id}>
-                            <DragIcon type="primary"/>
-                            <ConstructorElement
-                                isLocked={false}
-                                text={props.name}
-                                price={props.price}
-                                thumbnail={props.image}
-                                extraClass="ml-2"
+                />)}
+                {ingridients.length === 0 ?
+                    (<p className={`${styles.constructor_list} text_type_main-medium menu__title`}>Добавьте ингридиенты</p>)
+                    : <ul className={`${styles.constructor_list}`}>
+                        {ingridients.map((props, index) =>
+                            (props.type === 'sauce' || props.type === 'main') &&
+                            <BurgerConstructorItem
+                                props={props}
+                                uuid={props.uuid}
+                                index={index}
+                                moveListItem={moveIngridientsListItem}
                             />
-                        </li>
-                    )
-                    }
-                    </>
-                </ul>
-                {bun && <ConstructorElement
+                        )
+                        }
+                    </ul>
+                }
+                {bun.length === 0 ? null : (<ConstructorElement
                     type="bottom"
                     isLocked={true}
                     text={`${bun.name} (низ)`}
                     price={bun.price}
                     thumbnail={bun.image_mobile}
                     extraClass="ml-8"
-                />}
+                />)}
             </div>
             <div className={`${styles.counter} mt-10`}>
                 <div className={styles.price_container}>
-                    <p className='text text_type_digits-medium'>{totalPrice}</p>
+                    <p className='text text_type_digits-medium'>{totalPrice || 0}</p>
                     <img src={curicon} alt="currency icon"/>
                 </div>
                 <Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>
@@ -95,7 +104,7 @@ const BurgerConstructor = () => {
                         setPopupActive(false)
                     }
                     }>
-                        <OrderDetails orderNumber={orderNum} />
+                        <OrderDetails />
                     </Modal>
                 )
             }

@@ -78,18 +78,17 @@ const BurgerIngridients = () => {
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'bun' &&
-                            <li className={styles.ingridient_item}
+                            <div
                                 onClick={() => {
                                 openPopup();
                                 getDetails(props)
                             }}
-                                key={props._id}>
+                                >
                                 <BurgerIngridient
-                                    name={props.name}
-                                    price={props.price}
-                                    image={props.image}
+                                    ingridient={props}
+                                    key={props._id}
                                 />
-                            </li>
+                            </div>
                         )
                         }
                         </>
@@ -100,18 +99,17 @@ const BurgerIngridients = () => {
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'sauce' &&
-                            <li className={styles.ingridient_item}
+                            <div
                                 onClick={() => {
                                     openPopup();
                                     getDetails(props)
                                 }}
-                                key={props._id}>
+                                >
                                 <BurgerIngridient
-                                    name={props.name}
-                                    price={props.price}
-                                    image={props.image}
+                                    ingridient={props}
+                                    key={props._id}
                                 />
-                            </li>
+                            </div>
                         )
                         }
                         </>
@@ -122,18 +120,17 @@ const BurgerIngridients = () => {
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'main' &&
-                            <li className={styles.ingridient_item}
+                            <div
                                 onClick={() => {
                                     openPopup();
                                     getDetails(props)
                                 }}
-                                key={props._id}>
+                                >
                                 <BurgerIngridient
-                                    name={props.name}
-                                    price={props.price}
-                                    image={props.image}
+                                    ingridient={props}
+                                    key={props._id}
                                 />
-                            </li>
+                            </div>
                         )
                         }
                         </>
@@ -154,7 +151,5 @@ const BurgerIngridients = () => {
         </section>
     )
 }
-ingridientPropTypes.protoType = {
-    ingredient: PropTypes.arrayOf(ingridientPropTypes.isRequired)
-}
+
 export default BurgerIngridients;

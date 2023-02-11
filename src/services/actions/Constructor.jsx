@@ -1,0 +1,4 @@
+export const ADD_INGRIDIENT = 'ADD_INGRIDIENT';
+export const ADD_BUN = 'ADD_BUN';
+export const MOVE_INGRIDIENT = 'MOVE_INGRIDIENT';
+export const DELETE_INGRIDIENT = 'DELETE_INGRIDIENT'
