@@ -20,9 +20,14 @@ export const constructorReducer = (state = initialState, action) => {
             }
         }
         case MOVE_INGRIDIENT: {
+            const movedIngridients = [...state.ingridients];
+            movedIngridients.splice(
+                action.data.dragIndex,0,
+                movedIngridients.splice(action.data.hoverIndex,1)[0]
+            );
             return {
                 ...state,
-                ingridients: action.sort
+                ingridients: movedIngridients
             }
         }
         case DELETE_INGRIDIENT: {

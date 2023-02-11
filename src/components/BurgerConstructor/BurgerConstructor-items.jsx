@@ -3,7 +3,7 @@ import React, {useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 
 import {useDispatch, useSelector} from "react-redux";
-import {DELETE_INGRIDIENT} from "../../services/actions/Constructor";
+import {DELETE_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
 
 export const BurgerConstructorItem = ({props, index, moveListItem, uuid}) => {
     const dispatch = useDispatch()
@@ -22,21 +22,15 @@ export const BurgerConstructorItem = ({props, index, moveListItem, uuid}) => {
     })
     const [, dropRef] = useDrop({
         accept: 'item',
-        hover: (item, monitor) => {
+        hover: (item) => {
             if (!ref.current) return
             const dragIndex = item.index;
             const hoverIndex = index;
 
-            if (dragIndex === hoverIndex) return
-
-            const hoverBoundingRect = ref.current?.getBoundingClientRect();
-            const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-            const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
-
-            if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) return
-            if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
-
-            moveListItem(dragIndex, hoverIndex)
+            dispatch({
+                type: MOVE_INGRIDIENT,
+                data: {dragIndex, hoverIndex}
+            })
             item.index = hoverIndex
         },
     })

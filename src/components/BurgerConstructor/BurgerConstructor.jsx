@@ -48,14 +48,6 @@ const BurgerConstructor = () => {
             }
         }
     })
-    const moveIngridientsListItem = useCallback((dragIndex, hoverIndex) => {
-        const dragItem = ingridients[dragIndex];
-        const hoverItem = ingridients[hoverIndex];
-        const movedIngridients = [...ingridients];
-        movedIngridients[dragIndex] = hoverItem;
-        movedIngridients[hoverIndex] = dragItem;
-        dispatch({type: MOVE_INGRIDIENT, sort: movedIngridients})
-    },[dispatch, ingridients])
     return (
         <section className={`${styles.section} pt-25`}>
             <div className={`${styles.constructor} ml-4`} ref={dropRef}>
@@ -76,7 +68,6 @@ const BurgerConstructor = () => {
                                 props={props}
                                 key={props.uuid}
                                 index={index}
-                                moveListItem={moveIngridientsListItem}
                             />
                         )
                         }
