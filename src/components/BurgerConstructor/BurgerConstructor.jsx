@@ -17,9 +17,7 @@ import {BurgerConstructorItem} from "./BurgerConstructor-items";
 import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
 
 const BurgerConstructor = () => {
-    const [popupActive, setPopupActive] = useState(false)
     const openPopup = () => {
-        setPopupActive(true)
         dispatch(getOrder(ingridientsId))
     }
     const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
@@ -47,6 +45,7 @@ const BurgerConstructor = () => {
             }
         }
     })
+    const orderNumber = useSelector(store => store.orderDetails.orderDetailsNumber)
     return (
         <section className={`${styles.section} pt-25`}>
             <div className={`${styles.constructor} ml-4`} ref={dropRef}>
@@ -89,9 +88,8 @@ const BurgerConstructor = () => {
                 <Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>
             </div>
             {
-                popupActive && (
+                orderNumber && (
                     <Modal closePopup={() => {
-                        setPopupActive(false)
                         dispatch({
                             type: ORDER_CLOSE
                         })
