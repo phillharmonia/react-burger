@@ -8,7 +8,6 @@ import {
 import curicon from '../../images/curicon.svg'
 import Modal from '../Modal/Modal.jsx'
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import {API_ORDER, CheckRes, getOrderAPI} from "../../utils/Api";
 import {useDispatch, useSelector} from "react-redux";
 
 import {useDrop} from "react-dnd";

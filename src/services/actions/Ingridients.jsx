@@ -16,8 +16,10 @@ export const getIngridients = () => {
                     ingridients: data.data
                 })
             })
-        dispatch({
-            type: INGRIDIENTS_FAILED
-        })
+            .catch(() => {
+                dispatch({
+                    type: INGRIDIENTS_FAILED
+                });
+            })
     }
 }
