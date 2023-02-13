@@ -38,29 +38,11 @@ const BurgerIngridients = () => {
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('main')
     })
-    const positionScroll = () => {
-        switch (true) {
-            case bunInView:
-                setCurrent('bun')
-                break;
-            case sauceInView:
-                setCurrent('sauce')
-                break;
-            case mainInView:
-                setCurrent('main')
-                break;
-            default:
-                break;
-        }
-    }
     const onTabClick = (tab) => {
         setCurrent(tab);
         const place = document.getElementById(tab)
         place.scrollIntoView({behavior: "smooth"})
     }
-    useEffect(() => {
-        positionScroll()
-    }, [bunInView, sauceInView, mainInView])
     return (
         <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
