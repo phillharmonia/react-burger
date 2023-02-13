@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 
 const ingridientPropTypes = PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    __v: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,

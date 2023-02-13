@@ -4,8 +4,11 @@ import {useDrag, useDrop} from "react-dnd";
 
 import {useDispatch, useSelector} from "react-redux";
 import {DELETE_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
+import ingridientPropTypes from "../../utils/PropTypes";
+import PropTypes from 'prop-types';
 
-export const BurgerConstructorItem = ({props, index, moveListItem, uuid}) => {
+
+export const BurgerConstructorItem = ({props, index, uuid}) => {
     const dispatch = useDispatch()
     const onRemoveItem = (uuid) => {
         dispatch({
@@ -52,4 +55,10 @@ export const BurgerConstructorItem = ({props, index, moveListItem, uuid}) => {
 
         </>
     )
+}
+
+BurgerConstructorItem.propTypes = {
+    props: ingridientPropTypes.isRequired,
+    index: PropTypes.number.isRequired,
+    uuid: PropTypes.string.isRequired
 }

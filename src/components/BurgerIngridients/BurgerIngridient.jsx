@@ -2,6 +2,11 @@ import styles from "./BurgerIngridiens.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { useDrag } from "react-dnd";
+import ingridientPropTypes from "../../utils/PropTypes";
+import PropTypes from 'prop-types';
+
+
+
 
 
 export const BurgerIngridient = ({ ingridient }) => {
@@ -24,4 +29,8 @@ export const BurgerIngridient = ({ ingridient }) => {
             <Counter count={1} size="default"/>
         </li>
     )
+}
+
+BurgerIngridient.propTypes = {
+    ingridient: ingridientPropTypes.isRequired
 }
