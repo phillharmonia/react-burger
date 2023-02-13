@@ -1,7 +1,8 @@
-import styles from './IngridientDetails.module.css'
-import ingridientPropTypes from "../../utils/PropTypes";
+import styles from './IngridientDetails.module.css';
+import {useSelector} from "react-redux";
 
-const IngridientDetails = ({data}) => {
+const IngridientDetails = () => {
+    const data = useSelector(store => store.ingridientDetails.ingridient)
     return (
         <div className={`${styles.container} pt-10 pb-15`}>
             <h2 className={`${styles.title} text text_type_main-large`}>Детали ингридиента</h2>
@@ -30,7 +31,5 @@ const IngridientDetails = ({data}) => {
         </div>
     )
 }
-IngridientDetails.propTypes = {
-    data: ingridientPropTypes.isRequired
-}
+
 export default IngridientDetails;
