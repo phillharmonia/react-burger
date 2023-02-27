@@ -1,41 +1,42 @@
 import styles from './Register.module.css'
 import React from 'react'
-import {EmailInput, PasswordInput, Input, Button} from '@ya.praktikum/react-developer-burger-ui-components'
-import {Link} from "react-router-dom";
+import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
-    const [value, setValue] = React.useState('')
-    const onChange = e => {
-        setValue(e.target.value)
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const onFormSubmit = (e) => {
+        e.preventDefault();
     }
     return (
             <div className={`${styles.container}`}>
                 <h2 className={`text text_type_main-medium mb-6`}>Регистрация</h2>
+                <form onSubmit={onFormSubmit}>
                 <Input
-                    onChange={onChange}
-                    value={value}
-                    name={'email'}
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
                     isIcon={false}
                     extraClass="mb-6"
                     placeholder={'Имя'}
                 />
                 <EmailInput
-                    onChange={onChange}
-                    value={value}
-                    name={'email'}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                     isIcon={false}
                     extraClass="mb-6"
                 />
                 <PasswordInput
-                    onChange={onChange}
-                    value={value}
-                    name={'password'}
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                     extraClass="mb-6"
                 />
-                <Button type='primary' size='medium' htmlType={'button'} extraClass="mb-20">Войти</Button>
+                <Button type='primary' size='medium' htmlType={'button'} extraClass="mb-20">Зарегистрироваться</Button>
                 <p className={`text text_type_main-default text_color_inactive pb-4`}>Уже зарегистрированы?
                     <Link to="/login" className={styles.link}>Войти</Link>
                 </p>
+                </form>
             </div>
     )
 }
