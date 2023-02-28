@@ -1,12 +1,12 @@
 import styles from './ForgotPassword.module.css'
 import React, {useState} from 'react'
 import {EmailInput, Button} from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {forgotPassword} from "../../services/actions/User";
 import {useDispatch, useSelector} from "react-redux";
 
 export const ForgotPasswordPage = () => {
-    const {forgotPasswordSuccess} = useSelector(store => store.user)
+    const { forgotPasswordSuccess } = useSelector(store => store.user)
     const [email, setEmail] = useState('')
     const dispatch = useDispatch()
     const onChange = e => {
@@ -29,6 +29,9 @@ export const ForgotPasswordPage = () => {
                     extraClass="mb-6"
                 />
                     <Button type='primary' size='medium' htmlType={'submit'} disabled={!email} extraClass="mb-20">
+                        {
+                       forgotPasswordSuccess && (<Navigate to="/reset-password" />)
+                        }
                         Восстановить
                     </Button>
                     </form>
