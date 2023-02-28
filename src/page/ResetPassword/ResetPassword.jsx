@@ -15,7 +15,6 @@ export const ResetPasswordPage = () => {
                     value={password}
                     name={'password'}
                     placeholder={'Введите новый пароль'}
-                    isIcon={false}
                     extraClass="mb-6"
                 />
                  <Input
@@ -23,7 +22,6 @@ export const ResetPasswordPage = () => {
                     value={code}
                     name={'code'}
                      placeholder={'Введите код из письма'}
-                    isIcon={false}
                     extraClass="mb-6"
                 />
                 <Button type='primary' size='medium' htmlType={'button'} extraClass="mb-20">Сохранить</Button>
