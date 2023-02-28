@@ -22,7 +22,7 @@ export const ResetPasswordPage = () => {
                     onChange={e => setCode(e.target.value)}
                     value={code}
                     name={'code'}
-                     placeholder={'Введите код из письва'}
+                     placeholder={'Введите код из письма'}
                     isIcon={false}
                     extraClass="mb-6"
                 />
