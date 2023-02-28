@@ -1,6 +1,7 @@
 export const API_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredients'
 export const API_ORDER = 'https://norma.nomoreparties.space/api/orders'
 export const API_FORGOT_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset'
+export const API_RESET_PASSWORD = ' https://norma.nomoreparties.space/api/password-reset/reset'
 export const CheckRes = result => {
     if (result.ok) {
         return result.json();
@@ -41,6 +42,22 @@ export const forgotPasswordAPI = async (email) => {
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify(email)
+    })
+    .then((data) => CheckRes(data))
+}
+
+export const resetPasswordAPI = async (password, token) => {
+    return await fetch(API_FORGOT_PASSWORD, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(password, token)
     })
     .then((data) => CheckRes(data))
 }
