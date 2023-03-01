@@ -2,11 +2,11 @@ import styles from './ForgotPassword.module.css'
 import React, {useState} from 'react'
 import {EmailInput, Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Navigate } from "react-router-dom";
-import {forgotPassword} from "../../services/actions/User";
+import {forgotPassword} from "../../services/actions/Recovery";
 import {useDispatch, useSelector} from "react-redux";
 
 export const ForgotPasswordPage = () => {
-    const { forgotPasswordSuccess } = useSelector(store => store.user)
+    const { forgotPasswordSuccess } = useSelector(store => store.recovery)
     const [email, setEmail] = useState('')
     const dispatch = useDispatch()
     const onChange = e => {

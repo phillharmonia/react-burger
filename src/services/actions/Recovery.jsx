@@ -37,6 +37,7 @@ export const resetPassword = (password, token) => {
         .then(data => {
             dispatch({
                 type: RESET_PASSWORD_SUCCESS,
+                message: data.message
             })
         })
         .catch(() => {

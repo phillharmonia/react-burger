@@ -6,7 +6,7 @@ import {
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD_REQUEST,
     RESET_PASSWORD_SUCCESS
-} from "../actions/User";
+} from "../actions/Recovery";
 
 const initialState = {
     forgotPasswordRequest: false,
@@ -25,7 +25,7 @@ const initialState = {
     }
 }
 
-export const userReducer = (state = initialState, action) => {
+export const recoveryReducer = (state = initialState, action) => {
     switch(action.type) {
         case FORGOT_PASSWORD_REQUEST: {
             return {
@@ -69,7 +69,8 @@ export const userReducer = (state = initialState, action) => {
            ...state,
            resetPasswordRequest: false,
            resetPasswordFailed: false,
-           resetPasswordSuccess: true
+           resetPasswordSuccess: true,
+           message: action.message
        }
    }
     case RESET_PASSWORD_FAILED: {

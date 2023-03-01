@@ -3,7 +3,7 @@ import React from 'react'
 import {PasswordInput, Button, Input} from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {resetPassword} from "../../services/actions/User";
+import {resetPassword} from "../../services/actions/Recovery";
 
 export const ResetPasswordPage = () => {
     const [password, setPassword] = React.useState('')
