@@ -1,63 +1,75 @@
-export const API_INGRIDIENTS = 'https://norma.nomoreparties.space/api/ingredients'
-export const API_ORDER = 'https://norma.nomoreparties.space/api/orders'
-export const API_FORGOT_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset'
-export const API_RESET_PASSWORD = ' https://norma.nomoreparties.space/api/password-reset/reset'
-export const CheckRes = result => {
+export const API = {
+    ingridients: 'https://norma.nomoreparties.space/api/ingredients',
+    order: 'https://norma.nomoreparties.space/api/orders',
+    forgotPassword: 'https://norma.nomoreparties.space/api/password-reset',
+    resetPassword: 'https://norma.nomoreparties.space/api/password-reset/reset',
+    register: 'https://norma.nomoreparties.space/api/auth/register',
+    login: 'https://norma.nomoreparties.space/api/auth/login',
+};
+
+export const checkResult = (result) => {
     if (result.ok) {
         return result.json();
     }
     return Promise.reject(`Ошибка ${result.status}`);
-}
+};
+
 export const getIngridientsAPI = async () => {
-    return await fetch(API_INGRIDIENTS, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-    )
-    .then((data) => CheckRes(data))
-}
+    return await fetch(API.ingridients, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then((data) => checkResult(data));
+};
+
 export const getOrderAPI = async (ingridientsId) => {
-    return await fetch(API_ORDER, {
+    return await fetch(API.order, {
         method: 'POST',
         body: JSON.stringify({
-            ingredients: ingridientsId
+            ingredients: ingridientsId,
         }),
         headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then((data) => CheckRes(data))
-}
+            'Content-Type': 'application/json',
+        },
+    }).then((data) => checkResult(data));
+};
 
 export const forgotPasswordAPI = async (email) => {
-    return await fetch(API_FORGOT_PASSWORD, {
+    return await fetch(API.forgotPassword, {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(email)
-    })
-    .then((data) => CheckRes(data))
-}
+        body: JSON.stringify({email}),
+    }).then((data) => checkResult(data));
+};
 
 export const resetPasswordAPI = async (password, token) => {
-    return await fetch(API_FORGOT_PASSWORD, {
+    return await fetch(API.resetPassword, {
         method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(password, token)
-    })
-    .then((data) => CheckRes(data))
-}
+        body: JSON.stringify({password, token}),
+    }).then((data) => checkResult(data));
+};
+
+export const registerAPI = async (name, email, password) => {
+    return await fetch(API.register, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name, email, password}),
+    }).then((data) => checkResult(data));
+};
+
+export const loginAPI = async (email, password) => {
+    return await fetch(API.login, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email, password}),
+    }).then((data) => checkResult(data));
+};

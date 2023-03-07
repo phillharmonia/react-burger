@@ -18,11 +18,7 @@ const initialState = {
     resetPasswordSuccess: false,
 
     message: '',
-    user: {
-        email: '',
-        password: '',
-        code: ''
-    }
+    user: null
 }
 
 export const recoveryReducer = (state = initialState, action) => {
@@ -38,10 +34,7 @@ export const recoveryReducer = (state = initialState, action) => {
     case FORGOT_PASSWORD_SUCCESS: {
         return {
             ...state,
-            user: {
-                ...state.user,
-                email: ''
-            },
+            user: action.user,
             message: action.message,
             forgotPasswordSuccess: true,
             forgotPasswordRequest: false,
@@ -70,7 +63,6 @@ export const recoveryReducer = (state = initialState, action) => {
            resetPasswordRequest: false,
            resetPasswordFailed: false,
            resetPasswordSuccess: true,
-           message: action.message
        }
    }
     case RESET_PASSWORD_FAILED: {
