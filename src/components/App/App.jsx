@@ -7,6 +7,7 @@ import { LoginPage}  from "../../page/Login/Login";
 import { ForgotPasswordPage } from '../../page/ForgotPassword/ForgotPassword';
 import { ResetPasswordPage } from '../../page/ResetPassword/ResetPassword';
 import { RegisterPage } from '../../page/Register/Register';
+import { ProfilePage } from "../../page/Profile/Profile";
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/reset-password" element={<ResetPasswordPage />} />
                 <Route path="/register" element={<RegisterPage />}/>
+                <Route path="/profile" element={<ProfilePage />}/>
             </Routes>
         </div>
             </BrowserRouter>

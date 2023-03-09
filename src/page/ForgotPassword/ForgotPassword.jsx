@@ -1,7 +1,7 @@
 import styles from './ForgotPassword.module.css'
 import { useState } from 'react'
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, Navigate } from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { forgotPassword } from "../../services/actions/Recovery"
 
@@ -32,7 +32,7 @@ export const ForgotPasswordPage = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive pb-4">
-        Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
+        Вспомнили пароль? <Link exact to="/login" className={styles.link}>Войти</Link>
       </p>
     </div>
   )

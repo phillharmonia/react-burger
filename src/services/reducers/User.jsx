@@ -5,13 +5,23 @@ import {
 
     LOGIN_FORM_REQUEST,
     LOGIN_FORM_FAILED,
-    LOGIN_FORM_SUCCESS
+    LOGIN_FORM_SUCCESS,
+
+    GET_PROFILE_REQUEST,
+    GET_PROFILE_SUCCESS,
+    GET_PROFILE_FAILED,
+
+    PATCH_PROFILE_REQUEST,
+    PATCH_PROFILE_SUCCESS,
+    PATCH_PROFILE_FAILED
 } from "../actions/User";
 
 
 const initialState = {
-    user: null,
-
+    user: {
+        name: '',
+        email: ''
+     },
     registerRequest: false,
     registerFailed: false,
     registerSuccess: true,
@@ -19,6 +29,13 @@ const initialState = {
     loginRequest: false,
     loginFailed: false,
     loginSuccess: false,
+
+    getProfileRequest: false,
+    getProfileFailed: false,
+
+    patchProfileRequest: false,
+    patchProfileSuccess: false,
+    patchProfileFailed: false
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -73,6 +90,50 @@ export const userReducer = (state = initialState, action) => {
             loginSuccess: false
         }
     }
+    case GET_PROFILE_REQUEST: {
+        return {
+            ...state,
+            getProfileRequest: true,
+            getProfileFailed: false,
+        }
+    }
+    case GET_PROFILE_SUCCESS: {
+        return {
+            ...state,
+            getProfileRequest: false,
+            getProfileFailed: false,
+            user: action.user
+        }
+    }
+    case GET_PROFILE_FAILED: {
+        return {
+            ...state,
+            getProfileFailed: true,
+            getProfileRequest: false
+        }
+    }
+        case PATCH_PROFILE_REQUEST: {
+            return {
+                ...state,
+                patchProfileRequest: true,
+                patchProfileFailed: false,
+            }
+        }
+        case PATCH_PROFILE_SUCCESS: {
+            return {
+                ...state,
+                patchProfileRequest: false,
+                patchProfileFailed: false,
+                user: action.user
+            }
+        }
+        case PATCH_PROFILE_FAILED: {
+            return {
+                ...state,
+                patchProfileFailed: true,
+                patchProfileRequest: false
+            }
+        }
     default: {
         return state
     }
