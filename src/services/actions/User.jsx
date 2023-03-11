@@ -1,5 +1,5 @@
-import {getProfileAPI, loginAPI, patchProfileAPI, registerAPI} from "../../utils/Api";
-import {setCookie} from "../../utils/Cookie";
+import {getProfileAPI, loginAPI, patchProfileAPI, registerAPI, logoutAPI, updateTokenAPI,} from "../../utils/Api";
+import {setCookie, deleteCookie, getCookie} from "../../utils/Cookie";
 
 export const REGISTER_FORM_REQUEST = 'REGISTER_FORM_REQUEST';
 export const REGISTER_FORM_SUCCESS = 'REGISTER_FORM_SUCCESS';
@@ -16,6 +16,10 @@ export const GET_PROFILE_FAILED = 'GET_PROFILE_FAILED'
 export const PATCH_PROFILE_REQUEST = 'PATCH_PROFILE_REQUEST'
 export const PATCH_PROFILE_SUCCESS = 'PATCH_PROFILE_SUCCESS'
 export const PATCH_PROFILE_FAILED = 'PATCH_PROFILE_FAILED'
+
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
+export const LOGOUT_FAILED = 'LOGOUT_FAILED'
 
 export const register = (email, password, name) => {
     return function dispatch(dispatch) {
@@ -71,10 +75,16 @@ export const getProfile = () => {
                     user: data.user
                 })
             })
-            .catch(() => {
-                dispatch({
-                    type: GET_PROFILE_FAILED
-                })
+            .catch((error) => {
+                if(error) {
+                    updateTokenAPI()
+                    .then(() => dispatch(getProfile()))
+                }
+                else {
+                    dispatch({
+                        type: GET_PROFILE_FAILED
+                    })
+                }
             })
     }
 }
@@ -93,6 +103,25 @@ export const patchProfile = (email, name, password) => {
             .catch(() => {
                 dispatch({
                     type: PATCH_PROFILE_FAILED
+                })
+            })
+    }
+}
+export const logout = () => {
+    return function (dispatch) {
+        dispatch({
+            type: LOGOUT_REQUEST
+        })
+        logoutAPI(getCookie("refreshToken")).then(() => {
+            dispatch({
+                type: LOGOUT_SUCCESS,
+            })
+            deleteCookie('accessToken');
+            deleteCookie('refreshToken');
+        })
+            .catch(() => {
+                dispatch({
+                    type: LOGOUT_FAILED
                 })
             })
     }

@@ -21,7 +21,7 @@ const Header = () => {
                         </a>
                     </div>
                     <div className={styles.menu__item}>
-                        <Link to="/login" className={`${styles.menu__link_right} ${styles.menu__link}`}>
+                        <Link to="/profile" className={`${styles.menu__link_right} ${styles.menu__link}`}>
                             <ProfileIcon type="secondary" />
                             <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
                         </Link>

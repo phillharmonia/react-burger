@@ -3,7 +3,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfile, patchProfile} from "../../services/actions/User";
+import {getProfile, logout, patchProfile} from "../../services/actions/User";
 
 
 
@@ -26,10 +26,10 @@ export const ProfilePage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(patchProfile(state.email, state.name, state.password))
+        dispatch(patchProfile(state.name, state.email, state.password))
     }
 
-    const handleClearForm = (e) => {
+    const handleClearForm = () => {
         setState({...state, name: name, email: email})
     }
     const {pathname} = useLocation()
@@ -40,7 +40,7 @@ export const ProfilePage = () => {
                 <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/profile" && styles.active}`} exact to="/profile">Профиль</NavLink>
                 <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/orders" && styles.active}`} exact to="/history-orders">История
                     заказов</NavLink>
-                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium`}  to="/login" >Выход</NavLink>
+                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium`} onClick={() => dispatch(logout())}  to="/login" >Выход</NavLink>
                 <p className={`text text_type_main-default text_color_inactive mt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
             </div>
             <div className={`${styles.forms}`}>

@@ -45,7 +45,7 @@ export const RegisterPage = () => {
         </Button>
       </form>
       <p className={`text text_type_main-default text_color_inactive pb-4`}>
-        Уже зарегистрированы? <Link exact to="/login" className={styles.link}>Войти</Link>
+        Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
       </p>
     </div>
   );

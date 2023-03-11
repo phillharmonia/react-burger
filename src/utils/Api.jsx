@@ -1,4 +1,4 @@
-import {getCookie} from "./Cookie";
+import {getCookie, setCookie} from "./Cookie";
 
 export const API = {
     ingridients: 'https://norma.nomoreparties.space/api/ingredients',
@@ -8,7 +8,8 @@ export const API = {
     register: 'https://norma.nomoreparties.space/api/auth/register',
     login: 'https://norma.nomoreparties.space/api/auth/login',
     profile: 'https://norma.nomoreparties.space/api/auth/user',
-
+    logout: 'https://norma.nomoreparties.space/api/auth/logout',
+    token: 'https://norma.nomoreparties.space/api/auth/token'
 };
 
 export const checkResult = (result) => {
@@ -85,8 +86,8 @@ export const getProfileAPI = async () => {
             'Content-Type': 'application/json',
             authorization: `Bearer ${getCookie("accessToken")}`,
         },
-        })
-    .then((data) => checkResult(data));
+    })
+        .then((data) => checkResult(data));
 }
 
 export const patchProfileAPI = async (name, email, password) => {
@@ -98,5 +99,30 @@ export const patchProfileAPI = async (name, email, password) => {
         },
         body: JSON.stringify({name, email, password}),
     })
-    .then((data) => checkResult(data));
+        .then((data) => checkResult(data));
+}
+
+export const logoutAPI = async (refreshToken) => {
+    return await fetch(API.logout, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: refreshToken }),
+    })
+    .then((data) => checkResult(data))
+}
+export const updateTokenAPI = async (refreshToken) => {
+    return await fetch(API.token, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: refreshToken }),
+    })
+    .then((data) =>{
+        setCookie('accessToken', data.accessToken);
+        setCookie('refreshToken', data.refreshToken)
+    }
+        )
 }

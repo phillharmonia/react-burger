@@ -13,15 +13,16 @@ import {
 
     PATCH_PROFILE_REQUEST,
     PATCH_PROFILE_SUCCESS,
-    PATCH_PROFILE_FAILED
+    PATCH_PROFILE_FAILED,
+
+    LOGOUT_REQUEST,
+    LOGOUT_SUCCESS,
+    LOGOUT_FAILED,
 } from "../actions/User";
 
 
 const initialState = {
-    user: {
-        name: '',
-        email: ''
-     },
+    user: null,
     registerRequest: false,
     registerFailed: false,
     registerSuccess: true,
@@ -35,7 +36,11 @@ const initialState = {
 
     patchProfileRequest: false,
     patchProfileSuccess: false,
-    patchProfileFailed: false
+    patchProfileFailed: false,
+
+    logoutRequest: false,
+    logoutSuccess: false,
+    logoutFailed: false,
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -117,6 +122,7 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 patchProfileRequest: true,
                 patchProfileFailed: false,
+                patchProfileSuccess: false,
             }
         }
         case PATCH_PROFILE_SUCCESS: {
@@ -124,6 +130,7 @@ export const userReducer = (state = initialState, action) => {
                 ...state,
                 patchProfileRequest: false,
                 patchProfileFailed: false,
+                patchProfileSuccess: true,
                 user: action.user
             }
         }
@@ -131,7 +138,32 @@ export const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 patchProfileFailed: true,
-                patchProfileRequest: false
+                patchProfileRequest: false,
+                patchProfileSuccess: false
+            }
+        }
+        case LOGOUT_REQUEST: {
+            return {
+                ...state,
+                logoutRequest: true,
+                logoutFailed: false,
+                logoutSuccess: false
+            }
+        }
+        case LOGOUT_SUCCESS: {
+            return {
+                ...state,
+                logoutRequest: false,
+                logoutFailed: false,
+                loginSuccess: true,
+                user: null
+            }
+        }
+        case LOGOUT_FAILED: {
+            return {
+                logoutFailed: true,
+                loginSuccess: false,
+                logoutRequest: false
             }
         }
     default: {
