@@ -69,12 +69,13 @@ export const ProfilePage = () => {
                     placeholder={'Пароль'}
                     icon={"EditIcon"}
                 />
-                <div className={styles.buttons}>
-                    <Button htmlType="button" type="secondary" size="medium" onClick={handleClearForm}>Отмена</Button>
-                <Button htmlType="submit" type="primary" size="medium">
+                    { state.password === '' || state.name === name || state.email === email &&(
+                    <div className={styles.buttons}>
+                        <Button htmlType="button" type="secondary" size="medium" onClick={handleClearForm} >Отмена</Button>
+                        <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
-                </div>
+                </div>)}
                 </form>
             </div>
         </div>
