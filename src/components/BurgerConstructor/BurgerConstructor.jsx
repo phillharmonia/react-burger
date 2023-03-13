@@ -12,19 +12,22 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {useDrop} from "react-dnd";
 import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
-import { v4 as uuid4} from "uuid"
+import {v4 as uuid4} from "uuid"
 import {BurgerConstructorItem} from "./BurgerConstructor-items";
 import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
+import {useNavigate} from "react-router-dom";
 
 const BurgerConstructor = () => {
+    const navigate = useNavigate()
+    const user = useSelector(store => store.user.user)
     const openPopup = () => {
-        dispatch(getOrder(ingridientsId))
+        user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
     }
     const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
     const bun = useSelector(store => store.ingridientsConstructor.bun)
     const ingridientsId = useMemo(() => ingridients.map((item) => item._id), [ingridients])
     const totalPrice = useMemo(() => {
-        return ingridients.reduce((total,item) => total + item.price, bun ? bun.price * 2 : 0)
+        return ingridients.reduce((total, item) => total + item.price, bun ? bun.price * 2 : 0)
     }, [ingridients, bun])
     const dispatch = useDispatch()
     const [, dropRef] = useDrop({
@@ -36,8 +39,7 @@ const BurgerConstructor = () => {
                     type: ADD_BUN,
                     data: item.ingridient
                 })
-            }
-            else {
+            } else {
                 dispatch({
                     type: ADD_INGRIDIENT,
                     data: {...item.ingridient, uuid: uuid4()}
@@ -58,7 +60,8 @@ const BurgerConstructor = () => {
                     extraClass="ml-8"
                 />)}
                 {ingridients.length === 0 ?
-                    (<p className={`${styles.constructor_list} text_type_main-medium menu__title`}>Добавьте ингридиенты</p>)
+                    (<p className={`${styles.constructor_list} text_type_main-medium menu__title`}>Добавьте
+                        ингридиенты</p>)
                     : <ul className={`${styles.constructor_list}`}>
                         {ingridients.map((props, index) =>
                             (props.type === 'sauce' || props.type === 'main') &&
@@ -95,7 +98,7 @@ const BurgerConstructor = () => {
                         })
                     }
                     }>
-                        <OrderDetails />
+                        <OrderDetails/>
                     </Modal>
                 )
             }
