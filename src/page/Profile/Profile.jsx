@@ -69,13 +69,13 @@ export const ProfilePage = () => {
                     placeholder={'Пароль'}
                     icon={"EditIcon"}
                 />
-                    { state.password === '' || state.name === name || state.email === email &&(
+                    { state.password !== '' || state.name !== name || state.email !== email ?(
                     <div className={styles.buttons}>
                         <Button htmlType="button" type="secondary" size="medium" onClick={handleClearForm} >Отмена</Button>
                         <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
-                </div>)}
+                </div>) : null}
                 </form>
             </div>
         </div>
