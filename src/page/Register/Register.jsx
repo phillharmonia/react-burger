@@ -1,8 +1,8 @@
 import styles from './Register.module.css';
 import React, { useState } from 'react';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../../services/actions/User';
 
 export const RegisterPage = () => {
@@ -10,7 +10,11 @@ export const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-
+  const {registerSuccess} = useSelector(store => store.user)
+    const navigate = useNavigate()
+    if (registerSuccess) {
+        navigate("/")
+    }
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(name, email, password));
