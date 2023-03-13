@@ -21,6 +21,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_FAILED = 'LOGOUT_FAILED'
 
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST'
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS'
+export const REFRESH_TOKEN_FAILED = 'REFRESH_TOKEN_FAILED'
+
 export const register = (email, password, name) => {
     return function dispatch(dispatch) {
         dispatch({
@@ -76,8 +80,9 @@ export const getProfile = () => {
                 })
             })
             .catch((error) => {
-                if(error) {
-                    updateTokenAPI()
+                if(error === 'jwt expired') {
+                    const refreshToken = getCookie('refreshToken')
+                    updateTokenAPI(refreshToken)
                     .then(() => dispatch(getProfile()))
                 }
                 else {
@@ -100,11 +105,18 @@ export const patchProfile = (email, name, password) => {
                     user: data.user
                 })
             })
-            .catch(() => {
-                dispatch({
-                    type: PATCH_PROFILE_FAILED
-                })
-            })
+             .catch((error) => {
+                 if(error === 'jwt expired') {
+                    const refreshToken = getCookie('refreshToken')
+                    updateTokenAPI(refreshToken)
+                    .then(() => dispatch(getProfile()))
+                }
+                else {
+                    dispatch({
+                        type: GET_PROFILE_FAILED
+                    })
+                }
+             })
     }
 }
 export const logout = () => {

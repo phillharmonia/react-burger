@@ -121,7 +121,7 @@ export const updateTokenAPI = async (refreshToken) => {
         body: JSON.stringify({ token: refreshToken }),
     })
     .then((data) =>{
-        setCookie('accessToken', data.accessToken);
+        setCookie("accessToken", data.accessToken.split("Bearer ")[1])
         setCookie('refreshToken', data.refreshToken)
     }
         )
