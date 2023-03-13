@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Link, Navigate} from 'react-router-dom';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import { PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from '../../services/actions/Recovery';
 import styles from './ResetPassword.module.css';
@@ -9,8 +9,12 @@ export const ResetPasswordPage = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  const {resetPasswordSuccess} = useSelector(store => store.recovery)
+  const {resetPasswordSuccess, forgotPasswordSuccess} = useSelector(store => store.recovery)
+    if(!forgotPasswordSuccess) {
+        navigate("/forgot-password")
+    }
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPassword(password, token));
