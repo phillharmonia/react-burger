@@ -9,7 +9,7 @@ export const API = {
     login: 'https://norma.nomoreparties.space/api/auth/login',
     profile: 'https://norma.nomoreparties.space/api/auth/user',
     logout: 'https://norma.nomoreparties.space/api/auth/logout',
-    token: 'https://norma.nomoreparties.space/api/auth/token'
+    token:'https://norma.nomoreparties.space/api/auth/token'
 };
 
 export const checkResult = (result) => {
@@ -119,10 +119,13 @@ export const updateTokenAPI = async (refreshToken) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ token: refreshToken }),
+    }).then((data) => checkResult(data))
+    .then((data) => {
+        if (data.accessToken) {
+            setCookie("accessToken", data.accessToken.split("Bearer ")[1]);
+        }
+        if (data.refreshToken) {
+            setCookie("refreshToken", data.refreshToken);
+        }
     })
-    .then((data) =>{
-        setCookie("accessToken", data.accessToken.split("Bearer ")[1])
-        setCookie('refreshToken', data.refreshToken)
-    }
-        )
 }

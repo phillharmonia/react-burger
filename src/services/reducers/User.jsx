@@ -42,9 +42,7 @@ const initialState = {
     logoutSuccess: false,
     logoutFailed: false,
 
-    refreshTokenRequest: false,
-    refreshTokenSuccess: false,
-    refreshTokenFailed: false
+
 }
 
 export const userReducer = (state = initialState, action) => {
@@ -170,27 +168,6 @@ export const userReducer = (state = initialState, action) => {
                 logoutRequest: false
             }
         }
-    case REFRESH_TOKEN_REQUEST: {
-        return {
-            refreshTokenRequest: true,
-            refreshTokenSuccess: false,
-            refreshTokenFailed: false
-        }
-    }
-    case REFRESH_TOKEN_SUCCESS: {
-        return {
-            refreshTokenRequest: false,
-            refreshTokenSuccess: true,
-            refreshTokenFailed: false
-        }
-    }
-    case REFRESH_TOKEN_FAILED: {
-        return {
-            refreshTokenFailed: true,
-            refreshTokenRequest: false,
-            refreshTokenSuccess: false
-        }
-    }
     default: {
         return state
     }
