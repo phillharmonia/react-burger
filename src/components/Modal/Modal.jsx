@@ -4,15 +4,16 @@ import ReactDOM from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {useNavigate} from "react-router-dom";
 
 const modalRoot = document.querySelector('#modal');
 
 const Modal = ( {popupActive, children, closePopup} ) => {
-
+const navigate = useNavigate()
     React.useEffect(() => {
         const closePopupOnEsc = (evt) => {
             if (evt.key === "Escape") {
-                closePopup()
+                navigate("/")
             }
         }
         setTimeout(() => {

@@ -59,3 +59,8 @@
 .ingridient_list::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
+.link {
+    list-style: none;
+    text-decoration: none;
+    color: #F2F2F3;
+}

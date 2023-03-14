@@ -1,20 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
 import ingridientPropTypes from "../../utils/PropTypes";
 import PropTypes from 'prop-types';
 import Modal from "../Modal/Modal";
 import IngridientDetails from "../IngridientDetails/IngridientDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { getIngridients } from "../../services/actions/Ingridients";
-import { useInView } from "react-intersection-observer";
-import { closeIngridientDetails, getIngridientDetails } from "../../services/actions/IngridientsDetails";
-import { BurgerIngridient } from "./BurgerIngridient";
+import {useDispatch, useSelector} from "react-redux";
+import {getIngridients} from "../../services/actions/Ingridients";
+import {useInView} from "react-intersection-observer";
+import {closeIngridientDetails, getIngridientDetails} from "../../services/actions/IngridientsDetails";
+import {BurgerIngridient} from "./BurgerIngridient";
+import {Link, useLocation} from "react-router-dom";
 
 const BurgerIngridients = () => {
     const [current, setCurrent] = React.useState('bun')
     const [popupActive, setPopupActive] = useState(false)
     const dispatch = useDispatch()
+    const location = useLocation()
     const ingridients = useSelector(store => store.ingridients.ingridients)
     useEffect(() => {
         dispatch(
@@ -63,59 +65,75 @@ const BurgerIngridients = () => {
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'bun' &&
-                            <div
-                                onClick={() => {
-                                openPopup();
-                                getDetails(props)
-                            }}
+                            <Link
+                                className={styles.link}
+                                to={{pathname: `ingridients/${props._id}`}}
+                                key={props._id}>
+                                <div
+                                    onClick={() => {
+                                        openPopup();
+                                        getDetails(props)
+                                    }}
                                 >
-                                <BurgerIngridient
-                                    ingridient={props}
-                                    key={props._id}
-                                />
-                            </div>
+                                    <BurgerIngridient
+                                        ingridient={props}
+                                    />
+                                </div>
+                            </Link
+>
                         )
                         }
                         </>
                     </ul>
                 </div>
                 <div ref={sauceRef} id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3  className={`text text_type_main-medium mb-6`}>Соусы</h3>
+                    <h3 className={`text text_type_main-medium mb-6`}>Соусы</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'sauce' &&
-                            <div
-                                onClick={() => {
-                                    openPopup();
-                                    getDetails(props)
-                                }}
+                            <Link
+                                className={styles.link}
+                                to={{pathname: `ingridients/${props._id}`}}
+                                key={props._id}>
+                                <div
+                                    onClick={() => {
+                                        openPopup();
+                                        getDetails(props)
+                                    }}
                                 >
-                                <BurgerIngridient
-                                    ingridient={props}
-                                    key={props._id}
-                                />
-                            </div>
+                                    <BurgerIngridient
+                                        ingridient={props}
+                                        key={props._id}
+                                    />
+                                </div>
+                            </Link
+>
                         )
                         }
                         </>
                     </ul>
                 </div>
                 <div ref={mainRef} id='main' className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3  className={`text text_type_main-medium mb-6`}>Начинки</h3>
+                    <h3 className={`text text_type_main-medium mb-6`}>Начинки</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'main' &&
+                            <Link
+                                className={styles.link}
+                                to={{pathname: `ingridients/${props._id}`,  state: {background: location}}}
+                                key={props._id}>
                             <div
                                 onClick={() => {
                                     openPopup();
                                     getDetails(props)
                                 }}
-                                >
+                            >
                                 <BurgerIngridient
                                     ingridient={props}
                                     key={props._id}
                                 />
                             </div>
+                                </Link>
                         )
                         }
                         </>

@@ -1,8 +1,9 @@
 import styles from './IngridientDetails.module.css';
 import {useSelector} from "react-redux";
-
+import { useParams } from 'react-router-dom';
 const IngridientDetails = () => {
     const data = useSelector(store => store.ingridientDetails.ingridient)
+    const { id } = useParams()
     return (
         <div className={`${styles.container} pt-10 pb-15`}>
             <h2 className={`${styles.title} text text_type_main-large`}>Детали ингридиента</h2>

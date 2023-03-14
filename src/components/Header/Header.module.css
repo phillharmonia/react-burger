@@ -41,7 +41,7 @@
     column-gap: 8px;
 }
 
-.menu__link_left:first-of-type {
+.active {
     color: #F2F2F3;
 }
 .menu__link:hover {
