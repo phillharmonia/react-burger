@@ -5,26 +5,27 @@ import {
     ListIcon,
     ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from "react-router-dom";
+import {Link, NavLink, useLocation} from "react-router-dom";
 const Header = () => {
+    const {pathname} = useLocation()
     return (
         <header className={styles.header}>
             <nav className={styles.menu}>
                     <div className={`${styles.menu__item} ${styles.menu__item_left}`}>
-                        <Link to="/" className={`${styles.menu__link} ${styles.menu__link_left}`}>
+                        <NavLink to="/" className={`${styles.menu__link} ${styles.menu__link_left} text_color_inactive`}>
                             <BurgerIcon type="primary"/>
-                            <p className="text text_type_main-default">Конструктор</p>
-                        </Link>
-                        <a href="/" className={`${styles.menu__link} ${styles.menu__link_left}`}>
+                            <p className={`${pathname === "/" && styles.active} text text_type_main-default`}>Конструктор</p>
+                        </NavLink>
+                        <a href="/" className={`${styles.menu__link} ${styles.menu__link_left} text_color_inactive`}>
                             <ListIcon type="secondary"></ListIcon>
-                            <p className="text text_type_main-default text_color_inactive">Лента заказов</p>
+                            <p className={`${pathname === "/feed" && styles.active} text text_type_main-default`}>Лента заказов</p>
                         </a>
                     </div>
                     <div className={styles.menu__item}>
-                        <Link to="/profile" className={`${styles.menu__link_right} ${styles.menu__link}`}>
+                        <NavLink to="/profile" className={`${styles.menu__link_right} ${styles.menu__link} text_color_inactive`}>
                             <ProfileIcon type="secondary" />
-                            <p className="text text_type_main-default text_color_inactive">Личный кабинет</p>
-                        </Link>
+                            <p className={`${pathname === "/profile" && styles.active} text text_type_main-default`}>Личный кабинет</p>
+                        </NavLink>
                     </div>
                 <div className={styles.menu__logo}>
                     <a href="/" className={styles.menu__link}>
