@@ -3,7 +3,7 @@
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    max-width: 600px;
+    width: 844px;
     max-height: calc(100vh - 200px);
 }
 .container::-webkit-scrollbar {
@@ -17,4 +17,8 @@
 .link {
     text-decoration: none;
     color: #F2F2F3
+}
+.container_items {
+    display: flex;
+    flex-direction: column-reverse;
 }

@@ -13,7 +13,7 @@ const navigate = useNavigate()
     React.useEffect(() => {
         const closePopupOnEsc = (evt) => {
             if (evt.key === "Escape") {
-                navigate("/")
+                navigate(-1)
             }
         }
         setTimeout(() => {

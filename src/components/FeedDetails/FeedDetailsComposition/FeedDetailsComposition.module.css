@@ -1,0 +1,71 @@
+.image {
+    width: 60px;
+    height: 60px;
+    border-radius: 100px;
+    background: #131316;
+    background-size: cover;
+    object-fit: cover;
+}
+.container_image {
+    display: flex;
+    width: 64px;
+    height: 64px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.border {
+    background: linear-gradient(to right, #801AB2, #4C4CFF);
+    border-radius: 100px;
+    max-width: 64px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+.ingridient {
+    display: flex;
+    flex-direction: row;
+
+}
+.name_price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.name {
+    max-width: 320px;
+}
+.container_info {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+.price {
+    display: flex;
+    flex-direction: row;
+    gap: 8px
+}
+.scroll {
+    height: 30vh;
+    min-height: 70%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 24px;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 8px;
+    height: auto;
+    background-color: #2F2F37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}

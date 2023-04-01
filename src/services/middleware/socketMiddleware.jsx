@@ -1,13 +1,19 @@
+import {getCookie} from "../../utils/Cookie";
+import {updateTokenAPI} from "../../utils/Api";
+
 export const socketMiddleware = (wsUrl, wsActions) => {
     return store => {
         let socket = null;
-
+        let userSocket = null
         return next => action => {
             const { dispatch } = store;
             const { type, payload } = action;
-            const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+            const { wsInit, onOpen, onClose, onError, onMessage, wsInitUser,onOpenUser, close, closeUser, onCloseUser, onErrorUser, onMessageUser } = wsActions;
             if (type === wsInit) {
                 socket = new WebSocket(`${wsUrl}/all`);
+            }
+            if (type === wsInitUser) {
+                userSocket = new WebSocket(`${wsUrl}?token=${getCookie("accessToken")}`);
             }
             if (socket) {
                 socket.onopen = event => {
@@ -30,12 +36,41 @@ export const socketMiddleware = (wsUrl, wsActions) => {
                     dispatch({ type: onClose, payload: event });
                 };
 
-                if (type === wsSendMessage) {
-                    const orders = {...payload}
-                    socket.send(JSON.stringify(orders));
+            }
+            if (userSocket) {
+                userSocket.onopen = event => {
+                    dispatch({ type: onOpenUser, payload: event });
+                };
+
+                userSocket.onerror = event => {
+                    dispatch({ type: onErrorUser, payload: event });
+                };
+                userSocket.onmessage = event => {
+                    const message = JSON.parse(event.data);
+                    if (message.success) {
+                        dispatch({type: onMessageUser, payload: message})
+                    }
+                    else {
+                        updateTokenAPI(getCookie("refreshToken"))
+                            .then(() => {
+                                dispatch({ type: wsInitUser} )
+                            })
+                            .catch((err) => {
+                                console.log(err)
+                            })
+                    }
+                }
+                userSocket.onclose = event => {
+                    dispatch({type: onCloseUser, payload: event})
                 }
             }
+            if (type === close) {
+                socket.close();
+            }
 
+            if (type === closeUser) {
+                userSocket.close();
+            }
             next(action);
         };
     };

@@ -18,13 +18,13 @@ const Header = () => {
                         </NavLink>
                         <NavLink to="/feed" className={`${styles.menu__link} ${styles.menu__link_left} text_color_inactive`}>
                             <ListIcon type="secondary"></ListIcon>
-                            <p className={`${pathname === "/feed" && styles.active} text text_type_main-default`}>Лента заказов</p>
+                            <p className={`${pathname === "/feed/*"  && styles.active} text text_type_main-default`}>Лента заказов</p>
                         </NavLink>
                     </div>
                     <div className={styles.menu__item}>
                         <NavLink to="/profile" className={`${styles.menu__link_right} ${styles.menu__link} text_color_inactive`}>
                             <ProfileIcon type="secondary" />
-                            <p className={`${pathname === "/profile" && styles.active} text text_type_main-default`}>Личный кабинет</p>
+                            <p className={`${(pathname === "/profile" || pathname ==="/profile/orders") && styles.active} text text_type_main-default`}>Личный кабинет</p>
                         </NavLink>
                     </div>
                 <div className={styles.menu__logo}>

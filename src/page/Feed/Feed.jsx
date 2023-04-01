@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {
-    WS_CONNECTION_CLOSED,
+   WS_CLOSE_ORDERS_SOCKET,
     WS_CONNECTION_START,
 } from "../../services/action-types/wsActionTypes";
 import styles from './Feed.module.css'
@@ -21,7 +21,7 @@ export const FeedPage = () => {
         })
         return (() => {
             dispatch({
-                type: WS_CONNECTION_CLOSED
+                type: WS_CLOSE_ORDERS_SOCKET
             })
         })
     })

@@ -13,6 +13,7 @@ import {IngridientDetailsPage} from "../../page/IngridientDetails/IngridientDeta
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../services/actions/User";
 import {FeedPage} from "../../page/Feed/Feed";
+import {FeedDetails} from "../FeedDetails/FeedDetails";
 
 function App() {
 //    const location = useLocation() не работает, при использованни какого либо хука появляется ошибка в консоли
@@ -35,11 +36,12 @@ function App() {
                     <Route path="/reset-password" element={<ResetPasswordPage />} />
                     <Route path="/register" element={<RegisterPage />}/>
                     <Route
-                        path="/profile"
+                        path="/profile/*"
                         element={<ProtectedRoute element={<ProfilePage />} />}
                     />
                     <Route path="/ingridients/:id" element={<IngridientDetailsPage/>} />
-                    <Route path="/feed/*" element={<FeedPage />} />
+                    <Route path="/feed/" element={<ProtectedRoute element={<FeedPage />}/>} />
+                    <Route path="/feed/:id" element={<FeedDetails />} />
                 </Routes>
             </div>
         </BrowserRouter>

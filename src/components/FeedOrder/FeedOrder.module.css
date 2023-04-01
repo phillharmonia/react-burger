@@ -11,7 +11,6 @@
 .id {
     display: flex;
     justify-content: space-between;
-    width: 536px
 }
 .info {
     text-align: start;

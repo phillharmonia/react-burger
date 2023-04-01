@@ -1,6 +1,12 @@
-import {useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import {FeedOrder} from "../FeedOrder/FeedOrder";
 import styles from './FeedOrders.module.css'
+import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import Modal from "../Modal/Modal";
+import {closeIngridientDetails} from "../../services/actions/IngridientsDetails";
+import IngridientDetails from "../IngridientDetails/IngridientDetails";
+import {FeedDetails} from "../FeedDetails/FeedDetails";
 
 
 export const FeedOrders = () => {
@@ -11,7 +17,9 @@ export const FeedOrders = () => {
             {
                 orders.map((order) => {
                     return (
+                        <Link className={styles.link} to={`/feed/${order._id}`} >
                         <FeedOrder key={order._id} order={order} />
+                        </Link>
                     )
                 })
             }
