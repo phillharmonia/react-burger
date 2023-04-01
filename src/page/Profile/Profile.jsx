@@ -16,8 +16,8 @@ export const ProfilePage = () => {
     return (
         <div className={`${styles.container}`}>
             <div className={`${styles.links} pt-30`}>
-                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/profile" && styles.active}`} exact to="/profile">Профиль</NavLink>
-                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/profile/orders" && styles.active}`} exact to="/profile/orders">История
+                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/profile" && styles.active}`} to="/profile">Профиль</NavLink>
+                <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium ${pathname === "/profile/orders" && styles.active}`} to="/profile/orders">История
                     заказов</NavLink>
                 <NavLink className={`${styles.link} text_color_inactive text text_type_main-medium`} onClick={() => dispatch(logout())}  to="/login" >Выход</NavLink>
                 <p className={`text text_type_main-default text_color_inactive mt-20`}>В этом разделе вы можете изменить свои персональные данные</p>
