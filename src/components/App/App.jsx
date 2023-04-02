@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../services/actions/User";
 import {FeedPage} from "../../page/Feed/Feed";
 import {FeedDetails} from "../FeedDetails/FeedDetails";
+import {getIngridients} from "../../services/actions/Ingridients";
 
 function App() {
 //    const location = useLocation() не работает, при использованни какого либо хука появляется ошибка в консоли
@@ -24,7 +25,8 @@ function App() {
         if (user === null) {
             dispatch(getProfile())
         }
-    },[dispatch])
+        dispatch(getIngridients())
+    },[])
     return (
         <BrowserRouter>
             <div className={styles.App}>
@@ -40,8 +42,9 @@ function App() {
                         element={<ProtectedRoute element={<ProfilePage />} />}
                     />
                     <Route path="/ingridients/:id" element={<IngridientDetailsPage/>} />
-                    <Route path="/feed/" element={<ProtectedRoute element={<FeedPage />}/>} />
+                    <Route path="/feed/" element={<FeedPage />} />
                     <Route path="/feed/:id" element={<FeedDetails />} />
+                    <Route path="/profile/orders/:id" element={<FeedDetails />} />
                 </Routes>
             </div>
         </BrowserRouter>

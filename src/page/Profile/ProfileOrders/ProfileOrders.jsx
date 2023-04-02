@@ -39,9 +39,6 @@ export const ProfileOrders = () => {
                     )
                 })
             }
-                <Routes>
-                    <Route path="/:id" element={<FeedDetails />} />
-                </Routes>
             </div>
         </div>
     ) : null

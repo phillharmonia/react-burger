@@ -18,10 +18,6 @@ const BurgerIngridients = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const ingridients = useSelector(store => store.ingridients.ingridients)
-    useEffect(() => {
-        dispatch(
-            getIngridients())
-    }, [dispatch])
     const openPopup = () => {
         setPopupActive(true)
     }

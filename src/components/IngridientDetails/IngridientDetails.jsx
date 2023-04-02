@@ -1,10 +1,21 @@
 import styles from './IngridientDetails.module.css';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { useParams } from 'react-router-dom';
+import {useEffect} from "react";
+import {getIngridientDetails} from "../../services/actions/IngridientsDetails";
+import {getIngridients} from "../../services/actions/Ingridients";
 const IngridientDetails = () => {
-    const data = useSelector(store => store.ingridientDetails.ingridient)
+    const ingridients = useSelector(store => store.ingridients.ingridients)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(
+            getIngridients())
+    },[dispatch])
     const { id } = useParams()
+    const data = ingridients.find(ingredient => ingredient._id === id)
     return (
+        <>
+            { data &&
         <div className={`${styles.container} pt-10 pb-15`}>
             <h2 className={`${styles.title} text text_type_main-large`}>Детали ингридиента</h2>
             <img src={data.image_large} alt={data.name}/>
@@ -30,6 +41,8 @@ const IngridientDetails = () => {
                 </li>
             </ul>
         </div>
+            }
+        </>
     )
 }
 

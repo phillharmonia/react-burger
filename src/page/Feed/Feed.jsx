@@ -14,8 +14,6 @@ import {getIngridients} from "../../services/actions/Ingridients";
 export const FeedPage = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(
-            getIngridients())
         dispatch({
             type: WS_CONNECTION_START
         })
