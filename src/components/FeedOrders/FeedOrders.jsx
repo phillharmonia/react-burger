@@ -2,11 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {FeedOrder} from "../FeedOrder/FeedOrder";
 import styles from './FeedOrders.module.css'
 import {Link} from "react-router-dom";
-import React, {useState} from "react";
-import Modal from "../Modal/Modal";
-import {closeIngridientDetails} from "../../services/actions/IngridientsDetails";
-import IngridientDetails from "../IngridientDetails/IngridientDetails";
-import {FeedDetails} from "../FeedDetails/FeedDetails";
+import React from "react";
 import {SET_POPUP_ACITVE} from "../../services/actions/Popup";
 
 

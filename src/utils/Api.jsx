@@ -1,15 +1,17 @@
-import {getCookie, setCookie} from "./Cookie";
+import { getCookie, setCookie } from "./Cookie";
+
+const BASE_URL = "https://norma.nomoreparties.space/api";
 
 export const API = {
-    ingridients: 'https://norma.nomoreparties.space/api/ingredients',
-    order: 'https://norma.nomoreparties.space/api/orders',
-    forgotPassword: 'https://norma.nomoreparties.space/api/password-reset',
-    resetPassword: 'https://norma.nomoreparties.space/api/password-reset/reset',
-    register: 'https://norma.nomoreparties.space/api/auth/register',
-    login: 'https://norma.nomoreparties.space/api/auth/login',
-    profile: 'https://norma.nomoreparties.space/api/auth/user',
-    logout: 'https://norma.nomoreparties.space/api/auth/logout',
-    token:'https://norma.nomoreparties.space/api/auth/token'
+    ingridients: `${BASE_URL}/ingredients`,
+    order: `${BASE_URL}/orders`,
+    forgotPassword: `${BASE_URL}/password-reset`,
+    resetPassword: `${BASE_URL}/password-reset/reset`,
+    register: `${BASE_URL}/auth/register`,
+    login: `${BASE_URL}/auth/login`,
+    profile: `${BASE_URL}/auth/user`,
+    logout: `${BASE_URL}/auth/logout`,
+    token: `${BASE_URL}/auth/token`,
 };
 
 export const checkResult = (result) => {
