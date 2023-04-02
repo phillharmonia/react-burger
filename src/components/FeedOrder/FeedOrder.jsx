@@ -10,10 +10,6 @@ import Modal from "../Modal/Modal";
 import {FeedDetails} from "../FeedDetails/FeedDetails";
 
 export const FeedOrder = ({order}) => {
-    const [popupActive, setPopupActive] = useState(false)
-    const openPopup = () => {
-        setPopupActive(true)
-    }
     const {number, createdAt, name} = order
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const ingridientsData = useMemo(() => {
@@ -80,9 +76,7 @@ export const FeedOrder = ({order}) => {
         }
     }
     return (
-        <div className={`${styles.container} mb-4`} onClick={() => {
-            openPopup();
-        }}>
+        <div className={`${styles.container} mb-4`}>
             <div className={`${styles.id}`}>
                 <p className="text text_type_digits-default">#{number}</p>
                 <p className="text text_type_main-default text_color_inactive"><FormattedDate date={new Date(createdAt)} /> i-GMT+3</p>

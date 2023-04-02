@@ -11,6 +11,7 @@ import Modal from "../Modal/Modal";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {FeedDetailsComposition} from "./FeedDetailsComposition/FeedDetailsComposition";
+import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
 
 export const FeedDetails = () => {
     const {id} = useParams()
@@ -19,6 +20,11 @@ export const FeedDetails = () => {
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const location = useLocation();
     const dispatch = useDispatch()
+    const {popup}= useSelector(store => store.popup)
+    const closePopup = () => {
+        dispatch({type: SET_POPUP_CLOSE})
+        navigate(-1)
+    }
     useEffect(() => {
         if (location.pathname === `/feed/${id}` && !order) {
             dispatch({
@@ -84,15 +90,16 @@ export const FeedDetails = () => {
 
     const navigate = useNavigate()
     return (
-        <>
+       popup ? ( <>
             {order &&
+                <Modal closePopup={() => {closePopup()}}>
         <div className={`${styles.container} pt-10 `}>
             <h2 className={`${styles.number} text text_type_digits-default`}>#{order.number}</h2>
             <p className={`${styles.text} text text_type_main-medium mt-10`}>{order.name}</p>
             {getOrderStatus(order.status)}
             <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
             <FeedDetailsComposition orders={ingridientsData}/>
-            <div className={`${styles.time_price} mt-10`}>
+            <div className={`${styles.time_price} mt-10 mb-10`}>
                 <p className="text text_type_main-default text_color_inactive"><FormattedDate
                     date={new Date(order.createdAt)}/> i-GMT+3</p>
                 <div className={styles.totalPrice}>
@@ -101,7 +108,26 @@ export const FeedDetails = () => {
                 </div>
             </div>
         </div>
+                </Modal>
 }
-</>
+</>) :
+           ( <> {order &&
+               <div className={`${styles.container} pt-10 `}>
+                   <h2 className={`${styles.number} text text_type_digits-default`}>#{order.number}</h2>
+                   <p className={`${styles.text} text text_type_main-medium mt-10`}>{order.name}</p>
+                   {getOrderStatus(order.status)}
+                   <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
+                   <FeedDetailsComposition orders={ingridientsData}/>
+                   <div className={`${styles.time_price} mt-10`}>
+                       <p className="text text_type_main-default text_color_inactive"><FormattedDate
+                           date={new Date(order.createdAt)}/> i-GMT+3</p>
+                       <div className={styles.totalPrice}>
+                           <p className={`text text_type_digits-default`}>{totalPrice}</p>
+                           <CurrencyIcon type='primary'/>
+                       </div>
+                   </div>
+               </div>
+}
+</>)
     )
 }

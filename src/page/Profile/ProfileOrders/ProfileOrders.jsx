@@ -9,11 +9,15 @@ import styles from "./ProfileOrders.module.css"
 import {Link, Route, Routes} from "react-router-dom";
 import {FeedOrder} from "../../../components/FeedOrder/FeedOrder";
 import {FeedDetails} from "../../../components/FeedDetails/FeedDetails";
+import {SET_POPUP_ACITVE} from "../../../services/actions/Popup";
 
 
 
 export const ProfileOrders = () => {
     const dispatch = useDispatch()
+    const onClick = () => {
+        dispatch({type: SET_POPUP_ACITVE})
+    }
     useEffect(() => {
         dispatch({
             type: WS_USER_CONNECTION_START
@@ -33,7 +37,7 @@ export const ProfileOrders = () => {
             {
                 orders.map((order) => {
                     return (
-                        <Link className={styles.link} to={`/profile/orders/${order._id}`} >
+                        <Link onClick={onClick} className={styles.link} to={`/profile/orders/${order._id}`} >
                             <FeedOrder key={order._id} order={order} />
                         </Link>
                     )

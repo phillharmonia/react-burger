@@ -18,6 +18,7 @@ import {
     WS_USER_CONNECTION_SUCCESS, WS_USER_ORDERS_DATA, WS_USER_SEND_ORDERS
 } from "../action-types/wsActionTypes";
 import {wsReducer} from "../reducers/wsReducer";
+import {popupReducer} from "../reducers/Popup";
 
 
 export const socketTypes = {
@@ -44,4 +45,5 @@ export const rootReducer = combineReducers({
     recovery: recoveryReducer,
     user: userReducer,
     order: wsReducer,
+    popup: popupReducer
 })

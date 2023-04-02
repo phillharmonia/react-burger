@@ -1,0 +1,3 @@
+export const SET_POPUP_ACITVE = 'SET_MODAL_ACTIVE'
+export const SET_POPUP_CLOSE = 'SET_MODAL_CLOSE'
+

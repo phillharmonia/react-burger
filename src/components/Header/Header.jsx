@@ -18,7 +18,7 @@ const Header = () => {
                         </NavLink>
                         <NavLink to="/feed" className={`${styles.menu__link} ${styles.menu__link_left} text_color_inactive`}>
                             <ListIcon type="secondary"></ListIcon>
-                            <p className={`${pathname === "/feed/*"  && styles.active} text text_type_main-default`}>Лента заказов</p>
+                            <p className={`${pathname === "/feed"  && styles.active} text text_type_main-default`}>Лента заказов</p>
                         </NavLink>
                     </div>
                     <div className={styles.menu__item}>
