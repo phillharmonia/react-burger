@@ -13,6 +13,7 @@ import {SET_POPUP_ACITVE} from "../../../services/actions/Popup";
 
 
 
+
 export const ProfileOrders = () => {
     const dispatch = useDispatch()
     const onClick = () => {
@@ -37,8 +38,8 @@ export const ProfileOrders = () => {
             {
                 orders.map((order) => {
                     return (
-                        <Link onClick={onClick} className={styles.link} to={`/profile/orders/${order._id}`} >
-                            <FeedOrder key={order._id} order={order} />
+                        <Link key={order._id} onClick={onClick} className={styles.link} to={`/profile/orders/${order._id}`} >
+                            <FeedOrder order={order} />
                         </Link>
                     )
                 })

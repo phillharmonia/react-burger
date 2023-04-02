@@ -18,8 +18,8 @@ export const FeedOrders = () => {
             {
                 orders.map((order) => {
                     return (
-                        <Link onClick={onClick} className={styles.link} to={`/feed/${order._id}`} >
-                        <FeedOrder key={order._id} order={order} />
+                        <Link key={order._id} onClick={onClick} className={styles.link} to={`/feed/${order._id}`} >
+                        <FeedOrder order={order} />
                         </Link>
                     )
                 })

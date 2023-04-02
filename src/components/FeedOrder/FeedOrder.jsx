@@ -37,9 +37,9 @@ export const FeedOrder = ({order}) => {
         if (ingridientsData.length <= 6) {
             ingridientImages = ingridientsData.map((data, index) => {
                 return (
-                    <div className={styles.item_margin}>
+                    <div className={styles.item_margin} key={index}>
                     <div className={styles.border}>
-                    <div className={styles.container_image} key={index}>
+                    <div className={styles.container_image}>
                         <img className={styles.image} src={data.image} alt={data.name} />
                     </div>
                     </div>
@@ -49,9 +49,9 @@ export const FeedOrder = ({order}) => {
         } else {
             ingridientImages = ingridientsData.slice(0, 5).map((data, index) => {
                 return (
-                    <div className={styles.item_margin}>
+                    <div className={styles.item_margin} key={index}>
                     <div className={styles.border}>
-                    <div className={styles.container_image} key={index}>
+                    <div className={styles.container_image}>
                         <img className={styles.image} src={data.image} alt={data.name} />
                     </div>
                     </div>
@@ -60,12 +60,12 @@ export const FeedOrder = ({order}) => {
             });
             const remainingIngridients = ingridientsData.length - 5;
             ingridientImages.push(
-                <div className={styles.item_margin}>
+                <div className={styles.item_margin} key={ingridientsData.length}>
                 <div className={styles.item}>
                     <span className={`${styles.count} text text_type_main-default`}>+{remainingIngridients}</span>
                     <div className={styles.overlay}>
                 <div className={styles.border}>
-              <div className={styles.container_image} key={ingridientsData.length}>
+              <div className={styles.container_image}>
                     <img className={styles.image} src={ingridientsData[ingridientsData.length - 1].image} alt={ingridientsData[ingridientsData.length - 1].name}></img>
                 </div>
                 </div>
