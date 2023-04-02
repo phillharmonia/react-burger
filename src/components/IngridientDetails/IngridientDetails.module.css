@@ -5,6 +5,7 @@
 }
 
 .title {
+    width: 640px;
     height: 64px;
     align-self: flex-start;
     display: flex;
