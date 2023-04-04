@@ -6,7 +6,7 @@ import {
     WS_USER_CONNECTION_START
 } from "../../../services/action-types/wsActionTypes";
 import styles from "./ProfileOrders.module.css"
-import {Link, Route, Routes} from "react-router-dom";
+import {Link, Route, Routes, useLocation} from "react-router-dom";
 import {FeedOrder} from "../../../components/FeedOrder/FeedOrder";
 import {FeedDetails} from "../../../components/FeedDetails/FeedDetails";
 import {SET_POPUP_ACITVE} from "../../../services/actions/Popup";
@@ -31,8 +31,13 @@ export const ProfileOrders = () => {
     },[])
     const wsConnected = useSelector(store => store.order.wsConnectedUser)
     const orders = useSelector(store => store.order.orders)
+    const {popup} = useSelector(store => store.popup)
+    const {pathname} = useLocation()
 
     return wsConnected ? (
+        <>
+            {
+                (popup || pathname === "/profile/orders" ) &&
         <div className={`${styles.container} mt-10 pr-2`}>
             <div className={styles.container_items}>
             {
@@ -46,5 +51,10 @@ export const ProfileOrders = () => {
             }
             </div>
         </div>
+            }
+            <Routes>
+                <Route path="/:id" element={<FeedDetails />} />
+            </Routes>
+        </>
     ) : null
 }

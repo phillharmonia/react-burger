@@ -17,8 +17,6 @@ import {FeedDetails} from "../FeedDetails/FeedDetails";
 import {getIngridients} from "../../services/actions/Ingridients";
 
 function App() {
-//    const location = useLocation() не работает, при использованни какого либо хука появляется ошибка в консоли
-//    const background = location.state && location.state.background
     const {user} = useSelector(store => store.user)
     const dispatch = useDispatch()
     useEffect(() => {
@@ -32,7 +30,7 @@ function App() {
             <div className={styles.App}>
                 <Header/>
                 <Routes >
-                    <Route path="/" element={<ConstructorPage />} />
+                    <Route path="/*" element={<ConstructorPage />} />
                     <Route path="/login" element={<LoginPage />}/>
                     <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                     <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -41,10 +39,7 @@ function App() {
                         path="/profile/*"
                         element={<ProtectedRoute element={<ProfilePage />} />}
                     />
-                    <Route path="/ingridients/:id" element={<IngridientDetailsPage/>} />
-                    <Route path="/feed/" element={<FeedPage />} />
-                    <Route path="/feed/:id" element={<FeedDetails />} />
-                    <Route path="/profile/orders/:id" element={<FeedDetails />} />
+                    <Route path="/feed/*" element={<FeedPage />} />
                 </Routes>
             </div>
         </BrowserRouter>
