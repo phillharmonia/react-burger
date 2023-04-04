@@ -17,9 +17,6 @@ export const FeedOrders = () => {
         dispatch({type: SET_POPUP_ACITVE})
     }
     return wsConnected ? (
-        <>
-            {
-                (popup || pathname === "/feed" ) &&
                 <div className={`${styles.container} pr-2`}>
                     {
                         orders.map((order) => {
@@ -30,11 +27,6 @@ export const FeedOrders = () => {
                             )
                         })
                     }
-                    <Routes>
-                        <Route path="/:id" element={<FeedDetails />} />
-                    </Routes>
                 </div>
-            }
-        </>
     ) : null
 }

@@ -15,12 +15,13 @@ import {getProfile} from "../../services/actions/User";
 import {FeedPage} from "../../page/Feed/Feed";
 import {FeedDetails} from "../FeedDetails/FeedDetails";
 import {getIngridients} from "../../services/actions/Ingridients";
+import {OnlyUnAuth} from "../OnlyUnAuth/OnlyUnAuth";
 
 function App() {
     const {user} = useSelector(store => store.user)
     const dispatch = useDispatch()
     useEffect(() => {
-        if (user === null) {
+        if (!user) {
             dispatch(getProfile())
         }
         dispatch(getIngridients())
@@ -31,10 +32,13 @@ function App() {
                 <Header/>
                 <Routes >
                     <Route path="/*" element={<ConstructorPage />} />
-                    <Route path="/login" element={<LoginPage />}/>
-                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-                    <Route path="/reset-password" element={<ResetPasswordPage />} />
-                    <Route path="/register" element={<RegisterPage />}/>
+                    <Route
+                        path="/login"
+                        element={<OnlyUnAuth element={<LoginPage />} />}
+                    />
+                    <Route path="/forgot-password" element={<OnlyUnAuth element={<ForgotPasswordPage />} />} />
+                    <Route path="/reset-password"  element={<OnlyUnAuth element={<ResetPasswordPage />} />} />
+                    <Route path="/register" element={<OnlyUnAuth element={<RegisterPage />} />}/>
                     <Route
                         path="/profile/*"
                         element={<ProtectedRoute element={<ProfilePage />} />}

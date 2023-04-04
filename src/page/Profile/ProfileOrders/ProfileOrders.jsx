@@ -10,6 +10,7 @@ import {Link, Route, Routes, useLocation} from "react-router-dom";
 import {FeedOrder} from "../../../components/FeedOrder/FeedOrder";
 import {FeedDetails} from "../../../components/FeedDetails/FeedDetails";
 import {SET_POPUP_ACITVE} from "../../../services/actions/Popup";
+import {wsConnectionClose, wsConnectionOpenUser} from "../../../services/actions/wsActions";
 
 
 
@@ -20,16 +21,12 @@ export const ProfileOrders = () => {
         dispatch({type: SET_POPUP_ACITVE})
     }
     useEffect(() => {
-        dispatch({
-            type: WS_USER_CONNECTION_START
-        })
+        dispatch(wsConnectionOpenUser())
         return (() => {
-            dispatch({
-                type: WS_CLOSE_USER_ORDERS_SOCKET
-            })
+            dispatch(wsConnectionClose())
         })
     },[])
-    const wsConnected = useSelector(store => store.order.wsConnectedUser)
+    const wsConnected = useSelector(store => store.order.wsConnected)
     const orders = useSelector(store => store.order.orders)
     const {popup} = useSelector(store => store.popup)
     const {pathname} = useLocation()

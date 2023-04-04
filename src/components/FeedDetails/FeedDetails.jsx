@@ -12,6 +12,7 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
 import {FeedDetailsComposition} from "./FeedDetailsComposition/FeedDetailsComposition";
 import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
+import {wsConnectionClose, wsConnectionOpen, wsConnectionOpenUser} from "../../services/actions/wsActions";
 
 export const FeedDetails = () => {
     const {id} = useParams()
@@ -27,23 +28,15 @@ export const FeedDetails = () => {
     }
     useEffect(() => {
         if (location.pathname === `/feed/${id}` && !order) {
-            dispatch({
-                type: WS_CONNECTION_START
-            })
+            dispatch(wsConnectionOpen())
             return (() => {
-                dispatch({
-                    type: WS_CLOSE_ORDERS_SOCKET
-                })
+                dispatch(wsConnectionClose())
             })
         }
         if (location.pathname === `/profile/orders/${id}` && !order) {
-            dispatch({
-                type: WS_USER_CONNECTION_START
-            })
+            dispatch(wsConnectionOpenUser())
             return (() => {
-                dispatch({
-                    type: WS_CLOSE_USER_ORDERS_SOCKET
-                })
+                dispatch(wsConnectionClose())
             })
         }
     },[dispatch, order])
