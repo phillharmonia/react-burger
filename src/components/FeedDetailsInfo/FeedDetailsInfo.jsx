@@ -76,7 +76,7 @@ export const FeedDetailsInfo = () => {
                     {getOrderStatus(order.status)}
                     <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
                     <FeedDetailsComposition orders={ingridientsData}/>
-                    <div className={`${styles.time_price} mt-10`}>
+                    <div className={`${styles.time_price} mt-10 mb-10`}>
                         <p className="text text_type_main-default text_color_inactive"><FormattedDate
                             date={new Date(order.createdAt)}/> i-GMT+3</p>
                         <div className={styles.totalPrice}>
