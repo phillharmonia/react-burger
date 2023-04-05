@@ -16,13 +16,11 @@ const navigate = useNavigate()
                 closePopup()
             }
         }
-        setTimeout(() => {
             document.addEventListener("keydown", closePopupOnEsc);
-        }, 0);
         return () => {
             document.removeEventListener("keydown", closePopupOnEsc);
         };
-    });
+    },[]);
 
     return ReactDOM.createPortal(
         <>
