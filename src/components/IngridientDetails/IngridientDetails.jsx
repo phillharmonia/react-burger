@@ -9,10 +9,6 @@ import Modal from "../Modal/Modal";
 const IngridientDetails = () => {
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(
-            getIngridients())
-    },[dispatch])
     const { id } = useParams()
     const data = ingridients.find(ingredient => ingredient._id === id)
     const {popup}= useSelector(store => store.popup)
