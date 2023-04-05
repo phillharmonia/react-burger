@@ -21,7 +21,7 @@ export const FeedPage = () => {
         return (() => {
             dispatch(wsConnectionClose())
         })
-    })
+    },[])
     const {pathname} = useLocation()
     const {popup} = useSelector(store => store.popup)
     return (  <>

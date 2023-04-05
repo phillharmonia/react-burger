@@ -15,7 +15,7 @@ const IngridientDetails = () => {
     const navigate = useNavigate()
     const closePopup = () => {
         dispatch({type: SET_POPUP_CLOSE})
-        navigate(-1)
+        navigate("/")
     }
     return (
        popup ? ( <>

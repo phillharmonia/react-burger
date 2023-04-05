@@ -24,7 +24,7 @@ export const FeedDetails = () => {
     const {popup}= useSelector(store => store.popup)
     const closePopup = () => {
         dispatch({type: SET_POPUP_CLOSE})
-        navigate(-1)
+        location.pathname ===`/feed/${id}` ? navigate("/feed") : navigate("/profile/orders")
     }
     useEffect(() => {
         if (location.pathname === `/feed/${id}` && !order) {
