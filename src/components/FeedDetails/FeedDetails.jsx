@@ -1,4 +1,4 @@
-import styles from './FeedDetails.module.css'
+import styles from '../FeedDetailsInfo/FeedDetailsInfo.module.css'
 import React, {useEffect, useMemo} from "react";
 import {getIngridients} from "../../services/actions/Ingridients";
 import {
@@ -9,118 +9,30 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import Modal from "../Modal/Modal";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {FeedDetailsComposition} from "./FeedDetailsComposition/FeedDetailsComposition";
 import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
-import {wsConnectionClose, wsConnectionOpen, wsConnectionOpenUser} from "../../services/actions/wsActions";
+import {FeedDetailsInfo} from "../FeedDetailsInfo/FeedDetailsInfo";
 
 export const FeedDetails = () => {
-    const {id} = useParams()
-    const {orders} = useSelector(store => store.order)
-    const order = orders.find((order) => order._id === id);
-    const ingridients = useSelector(store => store.ingridients.ingridients)
-    const location = useLocation();
-    const dispatch = useDispatch()
-    const {popup}= useSelector(store => store.popup)
     const closePopup = () => {
         dispatch({type: SET_POPUP_CLOSE})
         location.pathname ===`/feed/${id}` ? navigate("/feed") : navigate("/profile/orders")
     }
-    useEffect(() => {
-        if (location.pathname === `/feed/${id}` && !order) {
-            dispatch(wsConnectionOpen())
-            return (() => {
-                dispatch(wsConnectionClose())
-            })
-        }
-        if (location.pathname === `/profile/orders/${id}` && !order) {
-            dispatch(wsConnectionOpenUser())
-            return (() => {
-                dispatch(wsConnectionClose())
-            })
-        }
-    },[dispatch, order])
-    const getOrderStatus = (status) => {
-        switch (status) {
-            case "done":
-                return (
-                    <p className={`${styles.text} ${styles.status} text text_type_main-default mt-3`}>Готов</p>
-                )
-            case "created":
-                return (
-                    <p className={`${styles.text} ${styles.status} text text_type_main-default mt-3`}>Создан</p>
-                )
-            case "pending":
-                return (
-                    <p className={`${styles.text} ${styles.status} text text_type_main-default mt-3`}>Готовится</p>
-                )
-            default:
-                return (
-                    <p className={`${styles.text} ${styles.status} text text_type_main-default mt-3`}>{status}</p>
-                )
-        }
-    }
-    const ingridientsData = useMemo(() => {
-        if (!order?.ingredients || !ingridients) {
-            return null;
-        }
-        return order?.ingredients.map((id) =>{
-            return ingridients?.find((data) => {
-                return id === data._id
-            })
-        })
-    }, [order?.ingredients, ingridients])
-
-    const totalPrice = useMemo(() => {
-        return ingridientsData?.reduce((total, item) => {
-            if (item?.type === 'bun') {
-                return total += item.price * 2
-            }
-            if(item?.type === 'main' || 'sauce')
-                return total += (item ? item.price : 0)
-        }, 0)
-    })
-
+    const {popup}= useSelector(store => store.popup)
+    const location = useLocation();
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const {id} = useParams()
     return (
-       popup ? ( <>
-            {order &&
-                <Modal closePopup={() => {closePopup()}}>
-        <div className={`${styles.container} pt-10 `}>
-            <h2 className={`${styles.number} text text_type_digits-default`}>#{order.number}</h2>
-            <p className={`${styles.text} text text_type_main-medium mt-10`}>{order.name}</p>
-            {getOrderStatus(order.status)}
-            <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
-            <FeedDetailsComposition orders={ingridientsData}/>
-            <div className={`${styles.time_price} mt-10 mb-10`}>
-                <p className="text text_type_main-default text_color_inactive"><FormattedDate
-                    date={new Date(order.createdAt)}/> i-GMT+3</p>
-                <div className={styles.totalPrice}>
-                    <p className={`text text_type_digits-default`}>{totalPrice}</p>
-                    <CurrencyIcon type='primary'/>
-                </div>
-            </div>
-        </div>
+        <>
+            {popup ? (
+                <Modal closePopup={closePopup}>
+                    <FeedDetailsInfo />
                 </Modal>
-}
-</>) :
-           ( <> {order &&
-               <div className={`${styles.container} pt-10 `}>
-                   <h2 className={`${styles.number} text text_type_digits-default`}>#{order.number}</h2>
-                   <p className={`${styles.text} text text_type_main-medium mt-10`}>{order.name}</p>
-                   {getOrderStatus(order.status)}
-                   <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
-                   <FeedDetailsComposition orders={ingridientsData}/>
-                   <div className={`${styles.time_price} mt-10`}>
-                       <p className="text text_type_main-default text_color_inactive"><FormattedDate
-                           date={new Date(order.createdAt)}/> i-GMT+3</p>
-                       <div className={styles.totalPrice}>
-                           <p className={`text text_type_digits-default`}>{totalPrice}</p>
-                           <CurrencyIcon type='primary'/>
-                       </div>
-                   </div>
-               </div>
-}
-</>)
-    )
+            ) : (
+                <>
+                    {<FeedDetailsInfo />}
+                </>
+            )}
+        </>
+    );
 }

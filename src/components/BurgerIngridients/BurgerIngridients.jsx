@@ -129,17 +129,6 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                {
-                    popupActive && (
-                        <Modal closePopup={() => {
-                            setPopupActive(false)
-                            dispatch(closeIngridientDetails())
-                        }
-                        }>
-                            <IngridientDetails/>
-                        </Modal>
-                    )
-                }
             </div>
         </section>
     )
