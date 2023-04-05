@@ -1,15 +1,17 @@
 import styles from "./BurgerIngridiens.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, {useMemo} from "react";
 import { useDrag } from "react-dnd";
 import ingridientPropTypes from "../../utils/PropTypes";
 import PropTypes from 'prop-types';
+import {useSelector} from "react-redux";
 
 
 
 
 
 export const BurgerIngridient = ({ ingridient }) => {
+    const {bun, ingridients} = useSelector(store => store.ingridientsConstructor)
     const { image, name, price, _id } = ingridient
     const [{ opacity }, dragRef] = useDrag({
         type: "ingridients",
@@ -18,6 +20,17 @@ export const BurgerIngridient = ({ ingridient }) => {
             opacity: monitor.isDragging() ? 0.5 : 1
         })
     })
+    const counterItems = useMemo(
+        () =>
+            (count = 0) => {
+                for (let { _id } of ingridients)
+                    if (_id === ingridient._id) count++;
+
+                if (bun && bun._id === ingridient._id) return 2;
+                return count;
+            },
+        [bun, ingridients, ingridient._id]
+    );
     return (
         <li className={styles.ingridient_item} key={_id} ref={dragRef} style={{ opacity }}>
             <img className={styles.image} src={image} alt={name}/>
@@ -26,7 +39,7 @@ export const BurgerIngridient = ({ ingridient }) => {
                 <CurrencyIcon type='primary'/>
             </div>
             <p className={`text text_type_main-default`}>{name}</p>
-            <Counter count={1} size="default"/>
+            {counterItems() > 0 && <Counter count={counterItems()} size="default" />}
         </li>
     )
 }
