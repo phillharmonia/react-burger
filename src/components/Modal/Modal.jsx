@@ -13,16 +13,14 @@ const navigate = useNavigate()
     React.useEffect(() => {
         const closePopupOnEsc = (evt) => {
             if (evt.key === "Escape") {
-                navigate("/")
+                closePopup()
             }
         }
-        setTimeout(() => {
             document.addEventListener("keydown", closePopupOnEsc);
-        }, 0);
         return () => {
             document.removeEventListener("keydown", closePopupOnEsc);
         };
-    });
+    },[]);
 
     return ReactDOM.createPortal(
         <>

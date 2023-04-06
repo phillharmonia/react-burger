@@ -11,6 +11,7 @@ import {useInView} from "react-intersection-observer";
 import {closeIngridientDetails, getIngridientDetails} from "../../services/actions/IngridientsDetails";
 import {BurgerIngridient} from "./BurgerIngridient";
 import {Link, useLocation} from "react-router-dom";
+import {SET_POPUP_ACITVE} from "../../services/actions/Popup";
 
 const BurgerIngridients = () => {
     const [current, setCurrent] = React.useState('bun')
@@ -18,12 +19,10 @@ const BurgerIngridients = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const ingridients = useSelector(store => store.ingridients.ingridients)
-    useEffect(() => {
-        dispatch(
-            getIngridients())
-    }, [dispatch])
-    const openPopup = () => {
-        setPopupActive(true)
+    const onClick = () => {
+        {
+            dispatch({type: SET_POPUP_ACITVE})
+        }
     }
     const getDetails = (props) => {
         dispatch(getIngridientDetails(props))
@@ -70,10 +69,7 @@ const BurgerIngridients = () => {
                                 to={{pathname: `ingridients/${props._id}`}}
                                 key={props._id}>
                                 <div
-                                    onClick={() => {
-                                        openPopup();
-                                        getDetails(props)
-                                    }}
+                                    onClick={onClick}
                                 >
                                     <BurgerIngridient
                                         ingridient={props}
@@ -96,10 +92,7 @@ const BurgerIngridients = () => {
                                 to={{pathname: `ingridients/${props._id}`}}
                                 key={props._id}>
                                 <div
-                                    onClick={() => {
-                                        openPopup();
-                                        getDetails(props)
-                                    }}
+                                    onClick={onClick}
                                 >
                                     <BurgerIngridient
                                         ingridient={props}
@@ -123,10 +116,7 @@ const BurgerIngridients = () => {
                                 to={{pathname: `ingridients/${props._id}`,  state: {background: location}}}
                                 key={props._id}>
                             <div
-                                onClick={() => {
-                                    openPopup();
-                                    getDetails(props)
-                                }}
+                                onClick={onClick}
                             >
                                 <BurgerIngridient
                                     ingridient={props}
@@ -139,17 +129,6 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                {
-                    popupActive && (
-                        <Modal closePopup={() => {
-                            setPopupActive(false)
-                            dispatch(closeIngridientDetails())
-                        }
-                        }>
-                            <IngridientDetails/>
-                        </Modal>
-                    )
-                }
             </div>
         </section>
     )

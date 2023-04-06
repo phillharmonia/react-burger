@@ -23,9 +23,11 @@ const BurgerConstructor = () => {
     const openPopup = () => {
         user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
     }
+    const {orderDetailsRequest} = useSelector(store => store.orderDetails)
     const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
     const bun = useSelector(store => store.ingridientsConstructor.bun)
     const ingridientsId = useMemo(() => ingridients.map((item) => item._id), [ingridients])
+
     const totalPrice = useMemo(() => {
         return ingridients.reduce((total, item) => total + item.price, bun ? bun.price * 2 : 0)
     }, [ingridients, bun])
@@ -88,7 +90,9 @@ const BurgerConstructor = () => {
                     <p className='text text_type_digits-medium'>{totalPrice || 0}</p>
                     <img src={curicon} alt="currency icon"/>
                 </div>
-                <Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>
+                { orderDetailsRequest ? (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large" disabled>{orderDetailsRequest ? 'Обрабатываем...' : 'Оформить заказ'}</Button>)
+                   : (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>)
+                }
             </div>
             {
                 orderNumber && (

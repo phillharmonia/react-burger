@@ -12,9 +12,7 @@ export const RegisterPage = () => {
   const dispatch = useDispatch();
   const {registerSuccess} = useSelector(store => store.user)
     const navigate = useNavigate()
-    if (registerSuccess) {
-        navigate("/")
-    }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(name, email, password));

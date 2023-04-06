@@ -62,3 +62,6 @@ BurgerConstructorItem.propTypes = {
     index: PropTypes.number.isRequired,
     uuid: PropTypes.string.isRequired
 }
+BurgerConstructorItem.defaultProps = {
+    uuid: 'default-uuid'
+}
