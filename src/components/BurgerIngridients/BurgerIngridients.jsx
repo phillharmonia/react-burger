@@ -90,8 +90,8 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                <div  id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3 ref={sauceRef} className={`text text_type_main-medium mb-6`}>Соусы</h3>
+                <div ref={sauceRef} id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
+                    <h3 className={`text text_type_main-medium mb-6`}>Соусы</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'sauce' &&
