@@ -1,21 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
-import ingridientPropTypes from "../../utils/PropTypes";
-import PropTypes from 'prop-types';
-import Modal from "../Modal/Modal";
-import IngridientDetails from "../IngridientDetails/IngridientDetails";
 import {useDispatch, useSelector} from "react-redux";
-import {getIngridients} from "../../services/actions/Ingridients";
 import {useInView} from "react-intersection-observer";
-import {closeIngridientDetails, getIngridientDetails} from "../../services/actions/IngridientsDetails";
 import {BurgerIngridient} from "./BurgerIngridient";
 import {Link, useLocation} from "react-router-dom";
 import {SET_POPUP_ACITVE} from "../../services/actions/Popup";
 
 const BurgerIngridients = () => {
     const [current, setCurrent] = React.useState('bun')
-    const [popupActive, setPopupActive] = useState(false)
     const dispatch = useDispatch()
     const location = useLocation()
     const ingridients = useSelector(store => store.ingridients.ingridients)
@@ -23,9 +16,6 @@ const BurgerIngridients = () => {
         {
             dispatch({type: SET_POPUP_ACITVE})
         }
-    }
-    const getDetails = (props) => {
-        dispatch(getIngridientDetails(props))
     }
     const {ref: bunRef, inView: bunInView} = useInView({
         threshold: 0.5,
@@ -39,6 +29,24 @@ const BurgerIngridients = () => {
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('main')
     })
+    const positionScroll = () => {
+        switch (true) {
+            case bunInView:
+                setCurrent('bun')
+                break;
+                case sauceInView:
+                    setCurrent('sauce')
+                break;
+                    case mainInView:
+                        setCurrent('main')
+                break;
+                        default:
+                            break;
+        }
+    }
+    useEffect(() => {
+        positionScroll()
+    }, [bunInView, sauceInView, mainInView])
     const onTabClick = (tab) => {
         setCurrent(tab);
         const place = document.getElementById(tab)
@@ -59,8 +67,8 @@ const BurgerIngridients = () => {
                 </Tab>
             </nav>
             <div className={`${styles.ingridient_list}`}>
-                <div ref={bunRef} id='bun' className={`${styles.ingridients} mb-10`}>
-                    <h3 className={`text text_type_main-medium mb-6`}>Булки</h3>
+                <div id='bun' className={`${styles.ingridients} mb-10`}>
+                    <h3 ref={bunRef} className={`text text_type_main-medium mb-6`}>Булки</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'bun' &&
@@ -82,8 +90,8 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                <div ref={sauceRef} id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3 className={`text text_type_main-medium mb-6`}>Соусы</h3>
+                <div  id='sauce' className={`${styles.ingridients} mt-10 mb-10`}>
+                    <h3 ref={sauceRef} className={`text text_type_main-medium mb-6`}>Соусы</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'sauce' &&
@@ -106,8 +114,8 @@ const BurgerIngridients = () => {
                         </>
                     </ul>
                 </div>
-                <div ref={mainRef} id='main' className={`${styles.ingridients} mt-10 mb-10`}>
-                    <h3 className={`text text_type_main-medium mb-6`}>Начинки</h3>
+                <div id='main' className={`${styles.ingridients} mt-10 mb-10`}>
+                    <h3 ref={mainRef} className={`text text_type_main-medium mb-6`}>Начинки</h3>
                     <ul className={`${styles.ingridient_items}`}>
                         <> {ingridients.map(props =>
                             props.type === 'main' &&
