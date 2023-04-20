@@ -13,9 +13,6 @@ export const FeedOrder = ({order}) => {
     const {number, createdAt, name} = order
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const ingridientsData = useMemo(() => {
-        if (!order?.ingredients || !ingridients) {
-            return null;
-        }
         return order.ingredients.map((id) =>{
             return ingridients.find((data) => {
                 return id === data._id

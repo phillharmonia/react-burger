@@ -4,7 +4,7 @@ import {getCookie} from "../../utils/Cookie";
 export const wsConnectionOpen = () => {
     return {
         type: WS_CONNECTION_START,
-        payload: "/all"
+        payload: `/all`
     }
 }
 export const wsConnectionClose = () => {
