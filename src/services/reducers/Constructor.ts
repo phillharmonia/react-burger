@@ -1,11 +1,31 @@
-import {ADD_BUN, ADD_INGRIDIENT, DELETE_INGRIDIENT, MOVE_INGRIDIENT} from "../actions/Constructor";
+import {ADD_BUN, ADD_INGRIDIENT, DELETE_INGRIDIENT, MOVE_INGRIDIENT, TConstructorActions} from "../actions/Constructor";
+import { TIngridient } from "../types/data";
 
-const initialState = {
+type TIngridientsState = {
+    ingridients: TIngridient[];
+    bun: TIngridient
+};
+const initialState: TIngridientsState = {
     ingridients: [],
-    bun: []
+    bun: {
+        _id: '',
+        __v: 0,
+        name: '',
+        type: "bun",
+        image: '',
+        price: 0,
+        fat: 0,
+        proteins: 0,
+        carbohydrates: 0,
+        calories: 0,
+        image_mobile: '',
+        image_large: '',
+        uuid: '',
+        length: 0,
+}
 }
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action: TConstructorActions): TIngridientsState => {
     switch (action.type) {
         case ADD_INGRIDIENT: {
             return {

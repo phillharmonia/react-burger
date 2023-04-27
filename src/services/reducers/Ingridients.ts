@@ -1,12 +1,22 @@
-import {INGRIDIENTS_SUCCESS, INGRIDIENTS_REQUEST, INGRIDIENTS_FAILED} from "../actions/Ingridients";
+import {
+    INGRIDIENTS_SUCCESS,
+    INGRIDIENTS_REQUEST,
+    INGRIDIENTS_FAILED,
+    TIngrdieintsActions
+} from "../actions/Ingridients";
+import {TIngridient} from "../types/data";
 
-
-const initialState = {
+type TIngridientsState = {
+    ingridients: TIngridient[];
+    ingridientsFailed: boolean;
+    ingridientsRequest: boolean;
+};
+const initialState: TIngridientsState = {
     ingridients: [],
     ingridientsFailed: false,
     ingridientsRequest: false
 }
-export const ingridientsReducer = (state = initialState, action) => {
+export const ingridientsReducer = (state = initialState, action: TIngrdieintsActions): TIngridientsState => {
     switch(action.type) {
         case INGRIDIENTS_REQUEST: {
             return {

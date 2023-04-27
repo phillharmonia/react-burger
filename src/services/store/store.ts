@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {ingridientsReducer} from "../reducers/Ingridients";
 import {ingridientsDetailsReducer} from "../reducers/IngridientsDetails"
 import {constructorReducer} from "../reducers/Constructor";
@@ -16,6 +16,8 @@ import {
 } from "../action-types/wsActionTypes";
 import {wsReducer} from "../reducers/wsReducer";
 import {popupReducer} from "../reducers/Popup";
+import {socketMiddleware} from "../middleware/socketMiddleware";
+import thunk from "redux-thunk";
 
 
 export const socketTypes = {
@@ -37,3 +39,22 @@ export const rootReducer = combineReducers({
     order: wsReducer,
     popup: popupReducer
 })
+
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+  interface EventTarget {
+    scrollTop: number;
+  }
+}
+
+export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const enhancer = composeEnhancers(applyMiddleware(
+    thunk,
+    socketMiddleware("wss://norma.nomoreparties.space/orders", socketTypes)
+    )
+    );
+export const store = createStore(rootReducer, enhancer);

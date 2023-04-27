@@ -1,31 +1,28 @@
-import React, {useEffect, useState} from 'react';
-import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
+import React, { FC, useEffect } from 'react';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './BurgerIngridiens.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {useInView} from "react-intersection-observer";
-import {BurgerIngridient} from "./BurgerIngridient";
-import {Link, useLocation} from "react-router-dom";
-import {SET_POPUP_ACITVE} from "../../services/actions/Popup";
+import { useInView } from "react-intersection-observer";
+import { BurgerIngridient } from "./BurgerIngridient";
+import { Link } from "react-router-dom";
+import { SET_POPUP_ACITVE } from "../../services/actions/Popup";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 
-const BurgerIngridients = () => {
-    const [current, setCurrent] = React.useState('bun')
+const BurgerIngridients: FC = () => {
+    const [current, setCurrent] = React.useState<string>('bun')
     const dispatch = useDispatch()
-    const location = useLocation()
     const ingridients = useSelector(store => store.ingridients.ingridients)
-    const onClick = () => {
-        {
-            dispatch({type: SET_POPUP_ACITVE})
-        }
+    const onClick: () => void = () => {
+        dispatch({ type: SET_POPUP_ACITVE })
     }
-    const {ref: bunRef, inView: bunInView} = useInView({
+    const { ref: bunRef, inView: bunInView } = useInView({
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('bun')
     })
-    const {ref: sauceRef, inView: sauceInView} = useInView({
+    const { ref: sauceRef, inView: sauceInView } = useInView({
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('sauce')
     })
-    const {ref: mainRef, inView: mainInView} = useInView({
+    const { ref: mainRef, inView: mainInView } = useInView({
         threshold: 0.5,
         onChange: (inView) => inView && setCurrent('main')
     })
@@ -34,35 +31,35 @@ const BurgerIngridients = () => {
             case bunInView:
                 setCurrent('bun')
                 break;
-                case sauceInView:
-                    setCurrent('sauce')
+            case sauceInView:
+                setCurrent('sauce')
                 break;
-                    case mainInView:
-                        setCurrent('main')
+            case mainInView:
+                setCurrent('main')
                 break;
-                        default:
-                            break;
+            default:
+                break;
         }
     }
     useEffect(() => {
         positionScroll()
-    }, [bunInView, sauceInView, mainInView])
-    const onTabClick = (tab) => {
+    }, [])
+    const onTabClick = (tab: string) => {
         setCurrent(tab);
-        const place = document.getElementById(tab)
-        place.scrollIntoView({behavior: "smooth"})
+        const place: HTMLElement | null = document.getElementById(tab)
+        place && place.scrollIntoView({ behavior: "smooth" })
     }
     return (
         <section className={`${styles.section} mt-10`}>
             <h1 className={`mb-5 text text_type_main-large`}>Соберите бургер</h1>
             <nav className={`${styles.nav} mb-10`}>
-                <Tab href="#bun" value="bun" active={current === 'bun'} onClick={() => onTabClick('bun')}>
+                <Tab value="bun" active={current === 'bun'} onClick={() => onTabClick('bun')}>
                     Булки
                 </Tab>
-                <Tab href="#sauce" value="sauce" active={current === 'sauce'} onClick={() => onTabClick('sauce')}>
+                <Tab value="sauce" active={current === 'sauce'} onClick={() => onTabClick('sauce')}>
                     Соусы
                 </Tab>
-                <Tab href="#main" value="main" active={current === 'main'} onClick={() => onTabClick('main')}>
+                <Tab value="main" active={current === 'main'} onClick={() => onTabClick('main')}>
                     Начинки
                 </Tab>
             </nav>
@@ -74,7 +71,7 @@ const BurgerIngridients = () => {
                             props.type === 'bun' &&
                             <Link
                                 className={styles.link}
-                                to={{pathname: `ingridients/${props._id}`}}
+                                to={{ pathname: `ingridients/${props._id}` }}
                                 key={props._id}>
                                 <div
                                     onClick={onClick}
@@ -84,7 +81,7 @@ const BurgerIngridients = () => {
                                     />
                                 </div>
                             </Link
->
+                            >
                         )
                         }
                         </>
@@ -97,7 +94,7 @@ const BurgerIngridients = () => {
                             props.type === 'sauce' &&
                             <Link
                                 className={styles.link}
-                                to={{pathname: `ingridients/${props._id}`}}
+                                to={{ pathname: `ingridients/${props._id}` }}
                                 key={props._id}>
                                 <div
                                     onClick={onClick}
@@ -108,7 +105,7 @@ const BurgerIngridients = () => {
                                     />
                                 </div>
                             </Link
->
+                            >
                         )
                         }
                         </>
@@ -121,17 +118,17 @@ const BurgerIngridients = () => {
                             props.type === 'main' &&
                             <Link
                                 className={styles.link}
-                                to={{pathname: `ingridients/${props._id}`,  state: {background: location}}}
+                                to={{ pathname: `ingridients/${props._id}` }}
                                 key={props._id}>
-                            <div
-                                onClick={onClick}
-                            >
-                                <BurgerIngridient
-                                    ingridient={props}
-                                    key={props._id}
-                                />
-                            </div>
-                                </Link>
+                                <div
+                                    onClick={onClick}
+                                >
+                                    <BurgerIngridient
+                                        ingridient={props}
+                                        key={props._id}
+                                    />
+                                </div>
+                            </Link>
                         )
                         }
                         </>

@@ -1,16 +1,17 @@
 import styles from "./BurgerIngridiens.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useMemo} from "react";
+import  {FC, useMemo} from "react";
 import { useDrag } from "react-dnd";
-import ingridientPropTypes from "../../utils/PropTypes";
-import PropTypes from 'prop-types';
-import {useSelector} from "react-redux";
+import { TIngridient } from "../../services/types/data";
+import { useSelector } from "../../services/hooks/hooks";
+
+type TIngridientItem = {
+    ingridient: TIngridient
+}
 
 
 
-
-
-export const BurgerIngridient = ({ ingridient }) => {
+export const BurgerIngridient: FC<TIngridientItem> = ({ ingridient }) => {
     const {bun, ingridients} = useSelector(store => store.ingridientsConstructor)
     const { image, name, price, _id } = ingridient
     const [{ opacity }, dragRef] = useDrag({
@@ -42,8 +43,4 @@ export const BurgerIngridient = ({ ingridient }) => {
             {counterItems() > 0 && <Counter count={counterItems()} size="default" />}
         </li>
     )
-}
-
-BurgerIngridient.propTypes = {
-    ingridient: ingridientPropTypes.isRequired
 }

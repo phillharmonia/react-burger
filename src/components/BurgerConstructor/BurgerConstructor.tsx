@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useCallback} from 'react';
+import  { useMemo, FC } from 'react';
 import styles from './BurgerConstructor.module.css'
 import {
     ConstructorElement,
@@ -8,33 +8,38 @@ import {
 import curicon from '../../images/curicon.svg'
 import Modal from '../Modal/Modal.jsx'
 import OrderDetails from "../OrderDetails/OrderDetails.jsx";
-import {useDispatch, useSelector} from "react-redux";
 
 import {useDrop} from "react-dnd";
-import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
+import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/constants";
 import {v4 as uuid4} from "uuid"
 import {BurgerConstructorItem} from "./BurgerConstructor-items";
 import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
 import {useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import { TIngridient } from '../../services/types/data';
 
-const BurgerConstructor = () => {
+type TItem = {
+    ingridient: TIngridient
+    uuid?: string
+}
+const BurgerConstructor: FC = () => {
     const navigate = useNavigate()
-    const user = useSelector(store => store.user.user)
-    const openPopup = () => {
-        user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
-    }
+    // const user = useSelector(store => store.user.user)
+    // const openPopup = () => {
+    //     user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
+    // }
     const {orderDetailsRequest} = useSelector(store => store.orderDetails)
-    const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
     const bun = useSelector(store => store.ingridientsConstructor.bun)
-    const ingridientsId = useMemo(() => ingridients.map((item) => item._id), [ingridients])
+    const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
+    // const ingridientsId = useMemo<string[]>(() => ingridients.map((item) => item._id), [ingridients])
 
-    const totalPrice = useMemo(() => {
+    const totalPrice = useMemo<number>(() => {
         return ingridients.reduce((total, item) => total + item.price, bun ? bun.price * 2 : 0)
     }, [ingridients, bun])
     const dispatch = useDispatch()
     const [, dropRef] = useDrop({
         accept: "ingridients",
-        drop(item) {
+        drop(item: TItem) {
             item.uuid = uuid4()
             if (item.ingridient.type === 'bun') {
                 dispatch({
@@ -76,7 +81,7 @@ const BurgerConstructor = () => {
                         }
                     </ul>
                 }
-                {bun.length === 0 ? null : (<ConstructorElement
+                {bun && bun.length === 0 ? null : (<ConstructorElement
                     type="bottom"
                     isLocked={true}
                     text={`${bun.name} (низ)`}
@@ -90,11 +95,11 @@ const BurgerConstructor = () => {
                     <p className='text text_type_digits-medium'>{totalPrice || 0}</p>
                     <img src={curicon} alt="currency icon"/>
                 </div>
-                { orderDetailsRequest ? (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large" disabled>{orderDetailsRequest ? 'Обрабатываем...' : 'Оформить заказ'}</Button>)
+                {/* { orderDetailsRequest ? (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large" disabled>{orderDetailsRequest ? 'Обрабатываем...' : 'Оформить заказ'}</Button>)
                    : (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>)
-                }
+                } */}
             </div>
-            {
+            {/* {
                 orderNumber && (
                     <Modal closePopup={() => {
                         dispatch({
@@ -105,7 +110,7 @@ const BurgerConstructor = () => {
                         <OrderDetails/>
                     </Modal>
                 )
-            }
+            } */}
         </section>
     )
 }
