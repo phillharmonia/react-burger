@@ -6,11 +6,11 @@ import {
 }
     from '@ya.praktikum/react-developer-burger-ui-components'
 import curicon from '../../images/curicon.svg'
-import Modal from '../Modal/Modal.jsx'
-import OrderDetails from "../OrderDetails/OrderDetails.jsx";
+import Modal from '../Modal/Modal'
+import OrderDetails from "../OrderDetails/OrderDetails";
 
 import {useDrop} from "react-dnd";
-import {ADD_BUN, ADD_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/constants";
+import {ADD_BUN, ADD_INGRIDIENT} from "../../services/constants";
 import {v4 as uuid4} from "uuid"
 import {BurgerConstructorItem} from "./BurgerConstructor-items";
 import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
@@ -24,14 +24,14 @@ type TItem = {
 }
 const BurgerConstructor: FC = () => {
     const navigate = useNavigate()
-    // const user = useSelector(store => store.user.user)
-    // const openPopup = () => {
-    //     user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
-    // }
+    const {user} = useSelector(store => store.user)
+    const openPopup = () => {
+        user ? dispatch(getOrder(ingridientsId)) : navigate("/login")
+    }
     const {orderDetailsRequest} = useSelector(store => store.orderDetails)
     const bun = useSelector(store => store.ingridientsConstructor.bun)
     const ingridients = useSelector(store => store.ingridientsConstructor.ingridients)
-    // const ingridientsId = useMemo<string[]>(() => ingridients.map((item) => item._id), [ingridients])
+    const ingridientsId = useMemo<string[]>(() => ingridients.map((item) => item._id), [ingridients])
 
     const totalPrice = useMemo<number>(() => {
         return ingridients.reduce((total, item) => total + item.price, bun ? bun.price * 2 : 0)
@@ -95,11 +95,11 @@ const BurgerConstructor: FC = () => {
                     <p className='text text_type_digits-medium'>{totalPrice || 0}</p>
                     <img src={curicon} alt="currency icon"/>
                 </div>
-                {/* { orderDetailsRequest ? (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large" disabled>{orderDetailsRequest ? 'Обрабатываем...' : 'Оформить заказ'}</Button>)
+                { orderDetailsRequest ? (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large" disabled>{orderDetailsRequest ? 'Обрабатываем...' : 'Оформить заказ'}</Button>)
                    : (<Button type="primary" onClick={openPopup} htmlType={'button'} size="large">Оформить заказ</Button>)
-                } */}
+                }
             </div>
-            {/* {
+            {
                 orderNumber && (
                     <Modal closePopup={() => {
                         dispatch({
@@ -110,7 +110,7 @@ const BurgerConstructor: FC = () => {
                         <OrderDetails/>
                     </Modal>
                 )
-            } */}
+            }
         </section>
     )
 }

@@ -5,8 +5,9 @@ import {
     ListIcon,
     ProfileIcon
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import {Link, NavLink, useLocation} from "react-router-dom";
-const Header = () => {
+import { FC } from 'react';
+import { NavLink, useLocation} from "react-router-dom";
+const Header: FC = () => {
     const {pathname} = useLocation()
     return (
         <header className={styles.header}>

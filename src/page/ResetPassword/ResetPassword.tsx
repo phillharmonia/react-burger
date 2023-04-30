@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { FC, useState } from 'react';
 import {Link, Navigate, useNavigate} from 'react-router-dom';
 import { PasswordInput, Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from '../../services/actions/Recovery';
 import styles from './ResetPassword.module.css';
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 
-export const ResetPasswordPage = () => {
+export const ResetPasswordPage: FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const ResetPasswordPage = () => {
     if(!forgotPasswordSuccess) {
         navigate("/forgot-password")
     }
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(resetPassword(password, token));
   };

@@ -17,11 +17,33 @@ import {
 
     LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
-    LOGOUT_FAILED,
+    TUserActions,
 } from "../actions/User";
+import { TUser } from "../types/data";
 
+export type TUserState = {
+    user: {name:string; email: string; password?:string}|null;
+    registerRequest: boolean;
+    registerFailed: boolean;
+    registerSuccess: boolean;
 
-const initialState = {
+    loginRequest: boolean;
+    loginFailed: boolean;
+    loginSuccess: boolean;
+
+    getProfileRequest: boolean;
+    getProfileFailed: boolean;
+
+    patchProfileRequest: boolean;
+    patchProfileSuccess: boolean;
+    patchProfileFailed: boolean;
+
+    logoutRequest: boolean;
+    logoutSuccess: boolean;
+    logoutFailed: boolean;
+}
+
+const initialState: TUserState = {
     user: null,
     registerRequest: false,
     registerFailed: false,
@@ -42,10 +64,9 @@ const initialState = {
     logoutSuccess: false,
     logoutFailed: false,
 
-
 }
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TUserActions): TUserState => {
     switch (action.type) {
         case REGISTER_FORM_REQUEST: {
             return {
@@ -159,13 +180,6 @@ export const userReducer = (state = initialState, action) => {
                 logoutFailed: false,
                 loginSuccess: true,
                 user: null
-            }
-        }
-        case LOGOUT_FAILED: {
-            return {
-                logoutFailed: true,
-                loginSuccess: false,
-                logoutRequest: false
             }
         }
     default: {

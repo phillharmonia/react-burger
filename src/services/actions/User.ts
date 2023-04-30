@@ -4,14 +4,38 @@ import { AppDispatch } from "../types";
 import { TUser } from "../types/data";
 
 export type TUserActions = 
- | ILoginRequest
- | ILoginSuccess
- | ILoginFailed
+| ILoginRequest
+| ILoginSuccess
+| ILoginFailed
+| IRegisterRequest
+| IRegisterSuccess
+| IRegisterFailed
+| IGetProfileRequest
+| IGetProfileSuccess
+| IGetProfileFailed
+| IPatchProfileRequest
+| IPatchProfileSuccess
+| IPatchProfileFailed
+| ILogoutRequest
+| ILogoutSuccess;
  ;
 
 export const REGISTER_FORM_REQUEST = 'REGISTER_FORM_REQUEST';
 export const REGISTER_FORM_SUCCESS = 'REGISTER_FORM_SUCCESS';
 export const REGISTER_FORM_FAILED = 'REGISTER_FORM_FAILED';
+
+interface IRegisterRequest {
+    type: typeof REGISTER_FORM_REQUEST;
+}
+
+interface IRegisterSuccess {
+    type: typeof REGISTER_FORM_SUCCESS;
+    user: TUser;
+}
+
+interface IRegisterFailed {
+    type: typeof REGISTER_FORM_FAILED;
+}
 
 export const LOGIN_FORM_REQUEST: 'LOGIN_FORM_REQUEST' = 'LOGIN_FORM_REQUEST';
 export const LOGIN_FORM_SUCCESS: 'LOGIN_FORM_SUCCESS' = 'LOGIN_FORM_SUCCESS'
@@ -30,21 +54,56 @@ interface ILoginFailed {
     readonly type: typeof LOGIN_FORM_FAILED;
 }
 
-export const GET_PROFILE_REQUEST = 'GET_PROFILE_REQUEST'
-export const GET_PROFILE_SUCCESS = 'GET_PROFILE_SUCCESS'
-export const GET_PROFILE_FAILED = 'GET_PROFILE_FAILED'
+export const GET_PROFILE_REQUEST: 'GET_PROFILE_REQUEST' = 'GET_PROFILE_REQUEST'
+export const GET_PROFILE_SUCCESS: 'GET_PROFILE_SUCCESS' = 'GET_PROFILE_SUCCESS'
+export const GET_PROFILE_FAILED: 'GET_PROFILE_FAILED' = 'GET_PROFILE_FAILED'
 
-export const PATCH_PROFILE_REQUEST = 'PATCH_PROFILE_REQUEST'
-export const PATCH_PROFILE_SUCCESS = 'PATCH_PROFILE_SUCCESS'
-export const PATCH_PROFILE_FAILED = 'PATCH_PROFILE_FAILED'
+interface IGetProfileRequest {
+    type: typeof GET_PROFILE_REQUEST;
+  }
+  
+  interface IGetProfileSuccess {
+    type: typeof GET_PROFILE_SUCCESS;
+    user: TUser;
+  }
+  
+  interface IGetProfileFailed {
+    type: typeof GET_PROFILE_FAILED;
+  }
+  
 
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_FAILED = 'LOGOUT_FAILED'
+export const PATCH_PROFILE_REQUEST: 'PATCH_PROFILE_REQUEST' = 'PATCH_PROFILE_REQUEST'
+export const PATCH_PROFILE_SUCCESS: 'PATCH_PROFILE_SUCCESS' = 'PATCH_PROFILE_SUCCESS'
+export const PATCH_PROFILE_FAILED: 'PATCH_PROFILE_FAILED' = 'PATCH_PROFILE_FAILED'
 
+interface IPatchProfileRequest {
+    type: typeof PATCH_PROFILE_REQUEST;
+  }
+  
+  interface IPatchProfileSuccess {
+    type: typeof PATCH_PROFILE_SUCCESS;
+    user: TUser;
+  }
+  
+  interface IPatchProfileFailed {
+    type: typeof PATCH_PROFILE_FAILED;
+  }
+  
+
+export const LOGOUT_REQUEST: 'LOGOUT_REQUEST' = 'LOGOUT_REQUEST'
+export const LOGOUT_SUCCESS: 'LOGOUT_SUCCESS' = 'LOGOUT_SUCCESS'
+
+interface ILogoutRequest {
+    type: typeof LOGOUT_REQUEST;
+  }
+  
+  interface ILogoutSuccess {
+    type: typeof LOGOUT_SUCCESS;
+  }
+  
 
 export const register = (email: string, password: string, name: string) => {
-    return function dispatch(dispatch: AppDispatch) {
+    return (dispatch: AppDispatch) => {
         dispatch({
             type: REGISTER_FORM_REQUEST
         })
@@ -63,7 +122,7 @@ export const register = (email: string, password: string, name: string) => {
                 })
             })
     }
-}
+};
 export const login = (email: string, password: string) => {
     return function dispatch(dispatch: AppDispatch) {
         dispatch({
@@ -149,10 +208,5 @@ export const logout = () => {
             deleteCookie('accessToken');
             deleteCookie('refreshToken');
         })
-            .catch(() => {
-                dispatch({
-                    type: LOGOUT_FAILED
-                })
-            })
     }
 }

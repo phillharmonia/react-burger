@@ -1,6 +1,12 @@
+import { FC } from "react";
 import styles from "../IngridientDetails/IngridientDetails.module.css"
+import { TIngridient } from "../../services/types/data";
 
-export const IngridientDetailsInfo = ({ data }) => {
+type TDataIngridient = {
+    data: TIngridient
+}
+
+export const IngridientDetailsInfo: FC<TDataIngridient> = ({ data }) => {
     return (
         <div className={`${styles.container} pt-10 pb-15`}>
             <h2 className={`${styles.title} text text_type_main-large`}>

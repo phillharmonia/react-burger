@@ -11,8 +11,9 @@ export type TIngridient = {
     calories: number;
     image_mobile: string;
     image_large: string;
-    uuid?: string;
+    uuid: string;
     length?: number;
+    index?: number;
 }
 
 export type TUser = {
@@ -20,4 +21,13 @@ export type TUser = {
     name: string;
     createdAt?: string;
     updatedAt?: string;
+}
+
+export type TModal = {
+    children?: JSX.Element;
+    closePopup: () => void;
+}
+
+export type TModalOverlay = {
+    closePopup: () => void;
 }

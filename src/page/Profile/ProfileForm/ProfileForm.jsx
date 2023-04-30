@@ -32,7 +32,6 @@ export const ProfileForm = () => {
     const handleClearForm = () => {
         setState({...state, name: name, email: email})
     }
-    const {pathname} = useLocation()
 
     return (
                         <div className={`${styles.forms} pt-30`}>

@@ -3,10 +3,12 @@ import { ThunkAction } from "redux-thunk";
 import { store } from "../store/store";
 import { TConstructorActions } from "../actions/Constructor";
 import { TIngrdieintsActions } from "../actions/Ingridients";
+import { TUserActions } from "../actions/User";
 
 type TApplicationActions =
     | TConstructorActions
-    | TIngrdieintsActions;
+    | TIngrdieintsActions
+    | TUserActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<

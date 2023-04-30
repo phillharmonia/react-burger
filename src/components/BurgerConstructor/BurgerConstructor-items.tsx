@@ -1,22 +1,26 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useRef} from "react";
+import {FC, useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {DELETE_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
-import ingridientPropTypes from "../../utils/PropTypes";
-import PropTypes from 'prop-types';
+import { TIngridient } from "../../services/types/data";
 
+type TConstructorItem = {
+    props: TIngridient;
+    index: number;
+    uuid?: string;
+}
 
-export const BurgerConstructorItem = ({props, index, uuid}) => {
+export const BurgerConstructorItem: FC<TConstructorItem> = ({props, index, uuid}) => {
     const dispatch = useDispatch()
-    const onRemoveItem = (uuid) => {
+    const onRemoveItem = (uuid: string) => {
         dispatch({
             type: DELETE_INGRIDIENT,
             uuid: uuid
         })
     }
-    const [opacity, dragRef] = useDrag({
+    const [{opacity}, dragRef] = useDrag({
         type: 'item',
         item: {index, uuid},
         collect: (monitor) => ({
@@ -25,7 +29,7 @@ export const BurgerConstructorItem = ({props, index, uuid}) => {
     })
     const [, dropRef] = useDrop({
         accept: 'item',
-        hover: (item) => {
+        hover: (item: TIngridient) => {
             if (!ref.current) return
             const dragIndex = item.index;
             const hoverIndex = index;
@@ -55,13 +59,4 @@ export const BurgerConstructorItem = ({props, index, uuid}) => {
 
         </>
     )
-}
-
-BurgerConstructorItem.propTypes = {
-    props: ingridientPropTypes.isRequired,
-    index: PropTypes.number.isRequired,
-    uuid: PropTypes.string.isRequired
-}
-BurgerConstructorItem.defaultProps = {
-    uuid: 'default-uuid'
 }

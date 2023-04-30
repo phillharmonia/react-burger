@@ -1,19 +1,18 @@
 import styles from './Register.module.css';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import {Link, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../../services/actions/User';
+import { useDispatch } from '../../services/hooks/hooks';
 
-export const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+export const RegisterPage: FC = () => {
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch();
-  const {registerSuccess} = useSelector(store => store.user)
-    const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(register(name, email, password));
   };
@@ -25,7 +24,7 @@ export const RegisterPage = () => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           name="name"
-          isIcon={false}
+
           extraClass="mb-6"
           placeholder="Имя"
         />

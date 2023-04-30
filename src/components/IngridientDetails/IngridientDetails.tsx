@@ -1,11 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
+
 import {useNavigate, useParams} from 'react-router-dom';
 import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
 import Modal from "../Modal/Modal";
 import {IngridientDetailsInfo} from "../IngridientDetailsInfo/IngridientDetailsInfo";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import { FC } from 'react';
 
 
-const IngridientDetails = () => {
+const IngridientDetails: FC = () => {
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const dispatch = useDispatch()
     const { id } = useParams()

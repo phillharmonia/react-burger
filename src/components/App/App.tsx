@@ -1,7 +1,7 @@
 import React, {FC, useEffect} from 'react'
 // @ts-ignore
 import styles from './App.module.css'
-import Header from "../Header/Header.jsx"
+import Header from "../Header/Header"
 import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate} from 'react-router-dom'
 import { ConstructorPage } from "../../page/Constructor/Constructor";
 import { LoginPage}  from "../../page/Login/Login";
@@ -22,32 +22,32 @@ const App: FC = () => {
     const {user} = useSelector(store => store.user)
     const dispatch = useDispatch()
     useEffect(() => {
-//        if (!user) {
-//            dispatch(getProfile())
-//        }
+       if (!user) {
+           dispatch(getProfile())
+       }
         dispatch(getIngridients())
-    },[])
+    },[dispatch, user])
     return (
         <BrowserRouter>
-            <div className={styles.App}>
-                <Header/>
-                <Routes >
-                    <Route path="/*" element={<ConstructorPage />} />
-                    {/*<Route*/}
-                    {/*    path="/login"*/}
-                    {/*    element={<OnlyUnAuth element={<LoginPage />} />}*/}
-                    {/*/>*/}
-                    {/* <Route path="/forgot-password" element={<OnlyUnAuth element={<ForgotPasswordPage />} />} />*/}
-                    {/*<Route path="/reset-password"  element={<OnlyUnAuth element={<ResetPasswordPage />} />} />*/}
-                    {/*<Route path="/register" element={<OnlyUnAuth element={<RegisterPage />} />}/>*/}
-                    {/*<Route*/}
-                    {/*    path="/profile/*"*/}
-                    {/*    element={<ProtectedRoute element={<ProfilePage />} />}*/}
-                    {/*/>*/}
-                    {/*<Route path="/feed/*" element={<FeedPage />} />*/}
-                </Routes>
-            </div>
-        </BrowserRouter>
+        <div className={styles.App}>
+            <Header/>
+            <Routes >
+                <Route path="/*" element={<ConstructorPage />} />
+                <Route
+                    path="/login"
+                    element={<OnlyUnAuth element={<LoginPage />} />}
+                />
+                <Route path="/forgot-password" element={<OnlyUnAuth element={<ForgotPasswordPage />} />} />
+                <Route path="/reset-password"  element={<OnlyUnAuth element={<ResetPasswordPage />} />} />
+                <Route path="/register" element={<OnlyUnAuth element={<RegisterPage />} />}/>
+                <Route
+                    path="/profile/*"
+                    element={<ProtectedRoute element={<ProfilePage />} />}
+                />
+                <Route path="/feed/*" element={<FeedPage />} />
+            </Routes>
+        </div>
+    </BrowserRouter>
     );
 }
 

@@ -5,10 +5,25 @@ import {
 
     RESET_PASSWORD_FAILED,
     RESET_PASSWORD_REQUEST,
-    RESET_PASSWORD_SUCCESS
+    RESET_PASSWORD_SUCCESS,
+    TRecoveryActions
 } from "../actions/Recovery";
+import { TUser } from "../types/data";
 
-const initialState = {
+export type TRecoveryState = {
+    forgotPasswordRequest: boolean;
+    forgotPasswordFailed: boolean;
+    forgotPasswordSuccess: boolean;
+
+    resetPasswordRequest: boolean;
+    resetPasswordFailed: boolean;
+    resetPasswordSuccess: boolean;
+
+    message: string,
+    user: TUser | null
+}
+
+const initialState: TRecoveryState = {
     forgotPasswordRequest: false,
     forgotPasswordFailed: false,
     forgotPasswordSuccess: false,
@@ -21,7 +36,7 @@ const initialState = {
     user: null
 }
 
-export const recoveryReducer = (state = initialState, action) => {
+export const recoveryReducer = (state = initialState, action: TRecoveryActions): TRecoveryState => {
     switch(action.type) {
         case FORGOT_PASSWORD_REQUEST: {
             return {

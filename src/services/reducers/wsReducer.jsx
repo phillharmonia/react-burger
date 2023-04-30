@@ -1,22 +1,15 @@
 import {
     WS_CONNECTION_CLOSED,
     WS_CONNECTION_ERROR,
-    WS_CONNECTION_START,
     WS_CONNECTION_SUCCESS,
     WS_GET_ORDERS_DATA,
-    WS_USER_CONNECTION_CLOSED,
-    WS_USER_CONNECTION_ERROR,
-    WS_USER_CONNECTION_SUCCESS,
-    WS_USER_ORDERS_DATA
 } from "../action-types/wsActionTypes";
 
 const initialState = {
     wsConnected: false,
-    wsConnectedUser: false,
     total: 0,
     totalToday: 0,
     orders: [],
-    userOrders: [],
 
 }
 export const wsReducer = (state = initialState, action) => {

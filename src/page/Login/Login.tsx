@@ -1,19 +1,18 @@
 import styles from './Login.module.css'
-import React, {useState} from 'react'
+import React, {FC, useState} from 'react'
 import {EmailInput, PasswordInput, Button} from '@ya.praktikum/react-developer-burger-ui-components'
-import {Link, Navigate, useLocation} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Link, Navigate } from "react-router-dom";
 import {login} from "../../services/actions/User";
-import { getCookie } from '../../utils/Cookie'
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 
 
-export const LoginPage = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+export const LoginPage: FC = () => {
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const {user} = useSelector(store => store.user)
 
     const dispatch = useDispatch()
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(login(email, password))
     }

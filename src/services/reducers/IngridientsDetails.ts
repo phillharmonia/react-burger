@@ -1,12 +1,18 @@
-import {OPEN_INGRIDIENT_SUCCESS, OPEN_INGRIDIENT_REQUEST, CLOSE_INGRIDIENT} from "../actions/IngridientsDetails";
+import {OPEN_INGRIDIENT_SUCCESS, OPEN_INGRIDIENT_REQUEST, CLOSE_INGRIDIENT, TIngridientDetailsActions} from "../actions/IngridientsDetails";
+import { TIngridient } from "../types/data";
 
+export type TIngridientDetailsState = {
+    ingridient: TIngridient | null,
+    openIngridientRequest: boolean,
+    openIngridientFailed: boolean
+}
 const initialState = {
     ingridient: null,
     openIngridientRequest: false,
     openIngridientFailed: false
 }
 
-export const ingridientsDetailsReducer = (state = initialState, action) => {
+export const ingridientsDetailsReducer = (state = initialState, action: TIngridientDetailsActions): TIngridientDetailsState => {
     switch (action.type) {
         case OPEN_INGRIDIENT_REQUEST:
             return {

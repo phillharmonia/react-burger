@@ -1,16 +1,16 @@
 import styles from './Profile.module.css'
 import {NavLink, Route, Routes, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {getProfile, logout, patchProfile} from "../../services/actions/User";
 import {ProfileForm} from "./ProfileForm/ProfileForm";
 import {ProfileOrders} from "./ProfileOrders/ProfileOrders";
 import {ProtectedRoute} from "../../components/ProtectedRoute/ProtectedRoute";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 
 
 
-export const ProfilePage = () => {
+export const ProfilePage: FC = () => {
     const {pathname} = useLocation()
     const {popup} = useSelector(store => store.popup)
     const dispatch = useDispatch()

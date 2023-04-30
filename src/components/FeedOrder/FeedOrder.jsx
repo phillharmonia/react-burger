@@ -21,10 +21,10 @@ export const FeedOrder = ({order}) => {
     }, [order.ingredients, ingridients])
     const totalPrice = useMemo(() => {
         return ingridientsData.reduce((total, item) => {
-            if (item.type === 'bun') {
+            if (item && item.type === 'bun') {
                 return total += item.price * 2
             }
-            if(item.type === 'main' || 'sauce')
+            if(item && item.type === 'main' || 'sauce')
             return total += (item ? item.price : 0)
         }, 0)
     })
@@ -32,8 +32,8 @@ export const FeedOrder = ({order}) => {
 
     if (ingridientsData && ingridientsData.length > 0) {
         if (ingridientsData.length <= 6) {
-            ingridientImages = ingridientsData.map((data, index) => {
-                return (
+            ingridientImages = ingridientsData && ingridientsData.map((data, index) => {
+                return data && data.image && (
                     <div className={styles.item_margin} key={index}>
                     <div className={styles.border}>
                     <div className={styles.container_image}>
@@ -44,8 +44,8 @@ export const FeedOrder = ({order}) => {
                 );
             });
         } else {
-            ingridientImages = ingridientsData.slice(0, 5).map((data, index) => {
-                return (
+            ingridientImages = ingridientsData && ingridientsData.slice(0, 5).map((data, index) => {
+                return data && data.image && (
                     <div className={styles.item_margin} key={index}>
                     <div className={styles.border}>
                     <div className={styles.container_image}>

@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './Modal.module.css'
 import ReactDOM from 'react-dom';
-import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
+import { TModal } from '../../services/types/data';
 
-const modalRoot = document.querySelector('#modal');
+const modalRoot = document.querySelector('#modal') as HTMLElement;
 
-const Modal = ( {popupActive, children, closePopup} ) => {
-const navigate = useNavigate()
+const Modal: FC<TModal> = ( { children, closePopup } ) => {
     React.useEffect(() => {
-        const closePopupOnEsc = (evt) => {
+        const closePopupOnEsc = (evt: KeyboardEvent) => {
             if (evt.key === "Escape") {
                 closePopup()
             }
@@ -24,7 +24,7 @@ const navigate = useNavigate()
 
     return ReactDOM.createPortal(
         <>
-            <ModalOverlay active={popupActive} closePopup={closePopup} />
+            <ModalOverlay closePopup={closePopup} />
                 <div className={styles.modal}>
                     <div className={styles.content}>
                         {children}
