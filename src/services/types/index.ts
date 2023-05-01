@@ -4,11 +4,20 @@ import { store } from "../store/store";
 import { TConstructorActions } from "../actions/Constructor";
 import { TIngrdieintsActions } from "../actions/Ingridients";
 import { TUserActions } from "../actions/User";
+import { TIngridientDetailsActions } from "../actions/IngridientsDetails";
+import { TOrderActions } from "../actions/OrderDetails";
+import { TRecoveryActions } from "../actions/Recovery";
+import { TWebSocketActions } from "../actions/wsActions";
 
 type TApplicationActions =
-    | TConstructorActions
+     TConstructorActions
     | TIngrdieintsActions
-    | TUserActions;
+    | TUserActions
+    | TIngridientDetailsActions
+    | TOrderActions
+    | TRecoveryActions
+    | TWebSocketActions;
+    
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<TReturn = void> = ActionCreator<

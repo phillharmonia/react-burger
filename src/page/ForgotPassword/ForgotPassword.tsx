@@ -1,16 +1,16 @@
 import styles from './ForgotPassword.module.css'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import {Link, Navigate} from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
 import { forgotPassword } from "../../services/actions/Recovery"
+import { useDispatch, useSelector } from '../../services/hooks/hooks'
 
-export const ForgotPasswordPage = () => {
+export const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch()
-  const { forgotPasswordSuccess } = useSelector(state => state.recovery)
+  const { forgotPasswordSuccess } = useSelector(store => store.recovery)
   const [email, setEmail] = useState('')
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     dispatch(forgotPassword(email))
   }
@@ -32,7 +32,7 @@ export const ForgotPasswordPage = () => {
         </Button>
       </form>
       <p className="text text_type_main-default text_color_inactive pb-4">
-        Вспомнили пароль? <Link exact to="/login" className={styles.link}>Войти</Link>
+        Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
       </p>
     </div>
   )

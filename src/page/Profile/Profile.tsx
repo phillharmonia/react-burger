@@ -1,12 +1,10 @@
 import styles from './Profile.module.css'
 import {NavLink, Route, Routes, useLocation} from "react-router-dom";
-import {FC, useEffect, useState} from "react";
-import {EmailInput, Input, PasswordInput, Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import {getProfile, logout, patchProfile} from "../../services/actions/User";
-import {ProfileForm} from "./ProfileForm/ProfileForm";
+import {FC} from "react";
+import {logout} from "../../services/actions/User";
 import {ProfileOrders} from "./ProfileOrders/ProfileOrders";
-import {ProtectedRoute} from "../../components/ProtectedRoute/ProtectedRoute";
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import ProfileForm from './ProfileForm/ProfileForm';
 
 
 

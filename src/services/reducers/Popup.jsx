@@ -1,5 +1,4 @@
-import {SET_POPUP_CLOSE, SET_POPUP_ACITVE} from "../actions/Popup";
-
+import { SET_POPUP_ACITVE, SET_POPUP_CLOSE } from "../constants";
 const initialState = { popup: false };
 
 export const popupReducer = (state = initialState, action) => {

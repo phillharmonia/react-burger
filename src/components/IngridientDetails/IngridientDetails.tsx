@@ -1,10 +1,10 @@
 
 import {useNavigate, useParams} from 'react-router-dom';
-import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
 import Modal from "../Modal/Modal";
 import {IngridientDetailsInfo} from "../IngridientDetailsInfo/IngridientDetailsInfo";
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { FC } from 'react';
+import { SET_POPUP_CLOSE } from '../../services/constants';
 
 
 const IngridientDetails: FC = () => {

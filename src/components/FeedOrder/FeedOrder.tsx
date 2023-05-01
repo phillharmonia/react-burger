@@ -4,12 +4,15 @@ import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
-import React, {useMemo, useState} from "react";
-import Modal from "../Modal/Modal";
-import {FeedDetails} from "../FeedDetails/FeedDetails";
+import React, {FC, useMemo} from "react";
+import { useSelector } from "../../services/hooks/hooks";
+import { TFeedOrder } from "../../services/types/data";
 
-export const FeedOrder = ({order}) => {
+export type TOrder = {
+    order: TFeedOrder
+}
+
+export const FeedOrder: FC<TOrder> = ({order}) => {
     const {number, createdAt, name} = order
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const ingridientsData = useMemo(() => {
@@ -24,10 +27,10 @@ export const FeedOrder = ({order}) => {
             if (item && item.type === 'bun') {
                 return total += item.price * 2
             }
-            if(item && item.type === 'main' || 'sauce')
             return total += (item ? item.price : 0)
         }, 0)
-    })
+    },[ingridientsData])
+
     let ingridientImages
 
     if (ingridientsData && ingridientsData.length > 0) {
@@ -63,7 +66,7 @@ export const FeedOrder = ({order}) => {
                     <div className={styles.overlay}>
                 <div className={styles.border}>
               <div className={styles.container_image}>
-                    <img className={styles.image} src={ingridientsData[ingridientsData.length - 1].image} alt={ingridientsData[ingridientsData.length - 1].name}></img>
+                    <img className={styles.image} src={ingridientsData[ingridientsData.length - 1]?.image} alt={ingridientsData[ingridientsData.length - 1]?.name}></img>
                 </div>
                 </div>
                     </div>

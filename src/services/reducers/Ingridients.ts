@@ -1,9 +1,6 @@
-import {
-    INGRIDIENTS_SUCCESS,
-    INGRIDIENTS_REQUEST,
-    INGRIDIENTS_FAILED,
-    TIngrdieintsActions
-} from "../actions/Ingridients";
+
+import { TIngrdieintsActions } from "../actions/Ingridients";
+import { INGRIDIENTS_FAILED, INGRIDIENTS_REQUEST, INGRIDIENTS_SUCCESS } from "../constants";
 import {TIngridient} from "../types/data";
 
 type TIngridientsState = {

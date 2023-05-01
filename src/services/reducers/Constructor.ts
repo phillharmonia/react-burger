@@ -1,4 +1,5 @@
-import {ADD_BUN, ADD_INGRIDIENT, DELETE_INGRIDIENT, MOVE_INGRIDIENT, TConstructorActions} from "../actions/Constructor";
+import { TConstructorActions } from "../actions/Constructor";
+import { ADD_BUN, ADD_INGRIDIENT, DELETE_INGRIDIENT, MOVE_INGRIDIENT } from "../constants";
 import { TIngridient } from "../types/data";
 
 type TIngridientsState = {

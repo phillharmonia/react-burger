@@ -1,13 +1,6 @@
-import {
-    FORGOT_PASSWORD_FAILED,
-    FORGOT_PASSWORD_REQUEST,
-    FORGOT_PASSWORD_SUCCESS,
 
-    RESET_PASSWORD_FAILED,
-    RESET_PASSWORD_REQUEST,
-    RESET_PASSWORD_SUCCESS,
-    TRecoveryActions
-} from "../actions/Recovery";
+import { TRecoveryActions } from "../actions/Recovery";
+import { FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED, RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS } from "../constants";
 import { TUser } from "../types/data";
 
 export type TRecoveryState = {

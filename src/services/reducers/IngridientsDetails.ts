@@ -1,4 +1,6 @@
-import {OPEN_INGRIDIENT_SUCCESS, OPEN_INGRIDIENT_REQUEST, CLOSE_INGRIDIENT, TIngridientDetailsActions} from "../actions/IngridientsDetails";
+
+import { TIngridientDetailsActions } from "../actions/IngridientsDetails";
+import { CLOSE_INGRIDIENT, OPEN_INGRIDIENT_REQUEST, OPEN_INGRIDIENT_SUCCESS } from "../constants";
 import { TIngridient } from "../types/data";
 
 export type TIngridientDetailsState = {

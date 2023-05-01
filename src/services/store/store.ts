@@ -5,19 +5,11 @@ import {constructorReducer} from "../reducers/Constructor";
 import {orderReducer} from "../reducers/OrderDetails";
 import {recoveryReducer} from "../reducers/Recovery";
 import {userReducer} from "../reducers/User";
-import {
-    WS_CLOSE_ORDERS_SOCKET,
-    WS_CONNECTION_CLOSED,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_START,
-    WS_CONNECTION_SUCCESS,
-    WS_GET_ORDERS_DATA,
-    WS_SEND_ORDERS,
-} from "../action-types/wsActionTypes";
 import {wsReducer} from "../reducers/wsReducer";
 import {popupReducer} from "../reducers/Popup";
 import {socketMiddleware} from "../middleware/socketMiddleware";
 import thunk from "redux-thunk";
+import { WS_CLOSE_ORDERS_SOCKET, WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_ORDERS_DATA, WS_SEND_ORDERS } from "../constants";
 
 
 export const socketTypes = {

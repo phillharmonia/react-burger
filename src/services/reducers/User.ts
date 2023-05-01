@@ -1,28 +1,10 @@
-import {
-    REGISTER_FORM_REQUEST,
-    REGISTER_FORM_SUCCESS,
-    REGISTER_FORM_FAILED,
 
-    LOGIN_FORM_REQUEST,
-    LOGIN_FORM_FAILED,
-    LOGIN_FORM_SUCCESS,
-
-    GET_PROFILE_REQUEST,
-    GET_PROFILE_SUCCESS,
-    GET_PROFILE_FAILED,
-
-    PATCH_PROFILE_REQUEST,
-    PATCH_PROFILE_SUCCESS,
-    PATCH_PROFILE_FAILED,
-
-    LOGOUT_REQUEST,
-    LOGOUT_SUCCESS,
-    TUserActions,
-} from "../actions/User";
+import { TUserActions } from "../actions/User";
+import { REGISTER_FORM_REQUEST, REGISTER_FORM_SUCCESS, REGISTER_FORM_FAILED, LOGIN_FORM_REQUEST, LOGIN_FORM_SUCCESS, LOGIN_FORM_FAILED, GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, GET_PROFILE_FAILED, PATCH_PROFILE_REQUEST, PATCH_PROFILE_SUCCESS, PATCH_PROFILE_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS } from "../constants";
 import { TUser } from "../types/data";
 
 export type TUserState = {
-    user: {name:string; email: string; password?:string}|null;
+    user: TUser |null;
     registerRequest: boolean;
     registerFailed: boolean;
     registerSuccess: boolean;

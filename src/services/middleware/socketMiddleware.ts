@@ -1,10 +1,9 @@
-import {getCookie} from "../../utils/Cookie";
-import {updateTokenAPI} from "../../utils/Api";
+import { TMiddlewareActions } from "../types/data";
+import { Middleware } from "redux";
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+export const socketMiddleware = (wsUrl: string, wsActions: TMiddlewareActions): Middleware => {
     return store => {
-        let socket = null;
-        let userSocket = null
+        let socket: null | WebSocket = null;
         return next => action => {
             const { dispatch } = store;
             const { type, payload } = action;
@@ -34,7 +33,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
             }
             if (type === close) {
-                socket.close();
+               socket && socket.close();
             }
 
             next(action);

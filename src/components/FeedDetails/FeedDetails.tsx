@@ -1,18 +1,12 @@
-import styles from '../FeedDetailsInfo/FeedDetailsInfo.module.css'
-import React, {useEffect, useMemo} from "react";
-import {getIngridients} from "../../services/actions/Ingridients";
-import {
-    WS_CLOSE_ORDERS_SOCKET, WS_CLOSE_USER_ORDERS_SOCKET,
-    WS_CONNECTION_CLOSED,
-    WS_CONNECTION_START, WS_USER_CONNECTION_START
-} from "../../services/action-types/wsActionTypes";
-import {useDispatch, useSelector} from "react-redux";
+
 import Modal from "../Modal/Modal";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {SET_POPUP_CLOSE} from "../../services/actions/Popup";
 import {FeedDetailsInfo} from "../FeedDetailsInfo/FeedDetailsInfo";
+import { useDispatch, useSelector } from "../../services/hooks/hooks";
+import { FC } from "react";
+import { SET_POPUP_CLOSE } from "../../services/constants";
 
-export const FeedDetails = () => {
+export const FeedDetails: FC = () => {
     const closePopup = () => {
         dispatch({type: SET_POPUP_CLOSE})
         location.pathname ===`/feed/${id}` ? navigate("/feed") : navigate("/profile/orders")

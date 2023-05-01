@@ -1,9 +1,8 @@
+import { CLOSE_INGRIDIENT, OPEN_INGRIDIENT_REQUEST, OPEN_INGRIDIENT_SUCCESS } from "../constants";
 import { AppDispatch } from "../types";
 import { TIngridient } from "../types/data";
 
-export const OPEN_INGRIDIENT_REQUEST: 'OPEN_INGRIDIENT_REQUEST' = 'OPEN_INGRIDIENT_REQUEST';
-export const OPEN_INGRIDIENT_SUCCESS: 'OPEN_INGRIDIENT_SUCCESS' = 'OPEN_INGRIDIENT_SUCCESS';
-export const CLOSE_INGRIDIENT: 'CLOSE_INGRIDIENT' = 'CLOSE_INGRIDIENT';
+
 export interface IIngridientDetailsRequest  {
     readonly type: typeof OPEN_INGRIDIENT_REQUEST
 }

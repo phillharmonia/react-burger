@@ -1,18 +1,22 @@
-import {
-    WS_CONNECTION_CLOSED,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_SUCCESS,
-    WS_GET_ORDERS_DATA,
-} from "../action-types/wsActionTypes";
 
-const initialState = {
+import { TWebSocketActions } from "../actions/wsActions";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_ORDERS_DATA } from "../constants";
+import { TFeedOrder } from "../types/data";
+
+export type TWebSocketState = {
+    wsConnected: boolean;
+    total: number;
+    totalToday: number;
+    orders: TFeedOrder[]
+}
+
+const initialState: TWebSocketState = {
     wsConnected: false,
     total: 0,
     totalToday: 0,
     orders: [],
-
 }
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWebSocketActions): TWebSocketState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS: {
             return {

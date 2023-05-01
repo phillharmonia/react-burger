@@ -4,8 +4,8 @@ import styles from './BurgerIngridiens.module.css'
 import { useInView } from "react-intersection-observer";
 import { BurgerIngridient } from "./BurgerIngridient";
 import { Link } from "react-router-dom";
-import { SET_POPUP_ACITVE } from "../../services/actions/Popup";
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import { SET_POPUP_ACITVE } from '../../services/constants';
 
 const BurgerIngridients: FC = () => {
     const [current, setCurrent] = React.useState<string>('bun')

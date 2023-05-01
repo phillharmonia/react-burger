@@ -1,21 +1,16 @@
-import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
-import {getIngridients} from "../../../services/actions/Ingridients";
-import {
-    WS_CLOSE_USER_ORDERS_SOCKET,
-    WS_USER_CONNECTION_START
-} from "../../../services/action-types/wsActionTypes";
+import {FC, useEffect} from "react";
 import styles from "./ProfileOrders.module.css"
 import {Link, Route, Routes, useLocation} from "react-router-dom";
 import {FeedOrder} from "../../../components/FeedOrder/FeedOrder";
 import {FeedDetails} from "../../../components/FeedDetails/FeedDetails";
-import {SET_POPUP_ACITVE} from "../../../services/actions/Popup";
 import {wsConnectionClose, wsConnectionOpenUser} from "../../../services/actions/wsActions";
+import { useDispatch, useSelector } from "../../../services/hooks/hooks";
+import { SET_POPUP_ACITVE } from "../../../services/constants";
 
 
 
 
-export const ProfileOrders = () => {
+export const ProfileOrders: FC = () => {
     const dispatch = useDispatch()
     const onClick = () => {
         dispatch({type: SET_POPUP_ACITVE})

@@ -1,4 +1,6 @@
-import {ORDER_CLOSE, ORDER_FAILED, ORDER_REQUEST, ORDER_SUCCESS, TOrderActions} from "../actions/OrderDetails";
+import { TOrderActions } from "../actions/OrderDetails";
+import { ORDER_CLOSE, ORDER_FAILED, ORDER_REQUEST, ORDER_SUCCESS } from "../constants";
+
 
 export type TOrderState = {
     orderDetailsRequest: boolean;

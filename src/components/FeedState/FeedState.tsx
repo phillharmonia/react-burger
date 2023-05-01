@@ -1,7 +1,9 @@
-import {useSelector} from "react-redux";
-import styles from './FeedState.module.css'
 
-export const FeedState = () => {
+import styles from './FeedState.module.css'
+import {useSelector} from "../../services/hooks/hooks";
+import {FC} from "react";
+
+export const FeedState: FC = () => {
     const {total, totalToday, orders, wsConnected} = useSelector(store => store.order)
 
     const doneOrders = orders.filter(order => order.status === 'done').slice(0,10)

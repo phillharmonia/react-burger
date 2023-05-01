@@ -3,8 +3,8 @@ import {FC, useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 
 import {useDispatch} from "react-redux";
-import {DELETE_INGRIDIENT, MOVE_INGRIDIENT} from "../../services/actions/Constructor";
 import { TIngridient } from "../../services/types/data";
+import { DELETE_INGRIDIENT, MOVE_INGRIDIENT } from "../../services/constants";
 
 type TConstructorItem = {
     props: TIngridient;

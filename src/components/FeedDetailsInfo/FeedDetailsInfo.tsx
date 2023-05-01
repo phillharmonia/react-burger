@@ -1,14 +1,15 @@
 import styles from './FeedDetailsInfo.module.css'
-import React, {useEffect, useMemo} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {FC, useEffect, useMemo} from "react";
 import {useLocation,  useParams} from "react-router-dom";
 import {CurrencyIcon, FormattedDate} from "@ya.praktikum/react-developer-burger-ui-components";
-import {FeedDetailsComposition} from "./FeedDetailsComposition/FeedDetailsComposition.jsx"
+import {FeedDetailsComposition} from "./FeedDetailsComposition/FeedDetailsComposition"
 import {wsConnectionClose, wsConnectionOpen, wsConnectionOpenUser} from "../../services/actions/wsActions";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
+import { TIngridient } from '../../services/types/data';
 
-export const FeedDetailsInfo = () => {
+export const FeedDetailsInfo: FC = () => {
     const {id} = useParams()
-    const {orders} = useSelector(store => store.order)
+    const {orders} = useSelector(store => store.order) || null;
     const order = orders.find((order) => order._id === id);
     const ingridients = useSelector(store => store.ingridients.ingridients)
     const location = useLocation();
@@ -26,8 +27,8 @@ export const FeedDetailsInfo = () => {
                 dispatch(wsConnectionClose())
             })
         }
-    },[dispatch, order])
-    const getOrderStatus = (status) => {
+    },[dispatch, order, id, location])
+    const getOrderStatus = (status: string) => {
         switch (status) {
             case "done":
                 return (
@@ -63,10 +64,9 @@ export const FeedDetailsInfo = () => {
             if (item?.type === 'bun') {
                 return total += item.price * 2
             }
-            if(item?.type === 'main' || 'sauce')
                 return total += (item ? item.price : 0)
         }, 0)
-    })
+    },[ingridientsData])
 
     return (
         <> {order &&
@@ -75,7 +75,7 @@ export const FeedDetailsInfo = () => {
                     <p className={`${styles.text} text text_type_main-medium mt-10`}>{order.name}</p>
                     {getOrderStatus(order.status)}
                     <p className={`${styles.text} text text_type_main-medium mt-15 mb-6`}>Состав:</p>
-                    <FeedDetailsComposition orders={ingridientsData}/>
+                    <FeedDetailsComposition orders={ingridientsData as TIngridient[]}/>
                     <div className={`${styles.time_price} mt-10 mb-10`}>
                         <p className="text text_type_main-default text_color_inactive"><FormattedDate
                             date={new Date(order.createdAt)}/> i-GMT+3</p>

@@ -1,10 +1,6 @@
 import {getOrderAPI} from "../../utils/Api";
+import { ORDER_CLOSE, ORDER_FAILED, ORDER_REQUEST, ORDER_SUCCESS } from "../constants";
 import { AppDispatch } from "../types";
-
-export const ORDER_REQUEST: 'ORDER_REQUEST' = 'ORDER_REQUEST';
-export const ORDER_SUCCESS: 'ORDER_SUCCESS' = 'ORDER_SUCCESS';
-export const ORDER_FAILED: 'ORDER_FAILED' = 'ORDER_FAILED';
-export const ORDER_CLOSE: 'ORDER_CLOSE' = 'ORDER_CLOSE';
 
 export interface IOrderRequest {
     readonly type: typeof ORDER_REQUEST

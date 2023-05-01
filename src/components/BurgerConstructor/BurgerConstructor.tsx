@@ -10,10 +10,10 @@ import Modal from '../Modal/Modal'
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 import {useDrop} from "react-dnd";
-import {ADD_BUN, ADD_INGRIDIENT} from "../../services/constants";
+import {ADD_BUN, ADD_INGRIDIENT, ORDER_CLOSE} from "../../services/constants";
 import {v4 as uuid4} from "uuid"
 import {BurgerConstructorItem} from "./BurgerConstructor-items";
-import {getOrder, ORDER_CLOSE} from "../../services/actions/OrderDetails";
+import {getOrder} from "../../services/actions/OrderDetails";
 import {useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { TIngridient } from '../../services/types/data';
