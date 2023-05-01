@@ -1,10 +1,9 @@
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {FC, useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
-
-import {useDispatch} from "react-redux";
 import { TIngridient } from "../../services/types/data";
 import { DELETE_INGRIDIENT, MOVE_INGRIDIENT } from "../../services/constants";
+import { useDispatch } from "../../services/hooks/hooks";
 
 type TConstructorItem = {
     props: TIngridient;
