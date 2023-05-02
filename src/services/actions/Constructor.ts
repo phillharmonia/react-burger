@@ -39,6 +39,6 @@ export const moveIngridients = (dragIndex: number, hoverIndex: number, ingridien
         const movedIngridients = [...ingridients];
         movedIngridients[dragIndex] = hoverItem;
         movedIngridients[hoverIndex] = dragItem;
-        dispatch({type: MOVE_INGRIDIENT, sort: movedIngridients})
+        dispatch({type: MOVE_INGRIDIENT, data: {dragIndex, hoverIndex}})
     }
 }

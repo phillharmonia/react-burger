@@ -19,6 +19,7 @@ export interface IResetPasswordRequest {
 }
 export interface IResetPasswordSuccess {
     readonly type: typeof RESET_PASSWORD_SUCCESS
+    message: ''
 }
 export interface IResetPasswordFailed {
     readonly type: typeof RESET_PASSWORD_FAILED
@@ -40,6 +41,7 @@ export const forgotPassword = (email: string) => {
         .then(data => {
             dispatch({
                 type: FORGOT_PASSWORD_SUCCESS,
+                user: data.user,
                 message: data.message
             })
         })

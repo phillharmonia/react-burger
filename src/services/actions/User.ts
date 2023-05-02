@@ -1,7 +1,7 @@
 import {getProfileAPI, loginAPI, patchProfileAPI, registerAPI, logoutAPI, updateTokenAPI,} from "../../utils/Api";
 import {setCookie, deleteCookie, getCookie} from "../../utils/Cookie";
 import { REGISTER_FORM_REQUEST, REGISTER_FORM_SUCCESS, REGISTER_FORM_FAILED, LOGIN_FORM_REQUEST, LOGIN_FORM_SUCCESS, LOGIN_FORM_FAILED, GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, GET_PROFILE_FAILED, PATCH_PROFILE_REQUEST, PATCH_PROFILE_SUCCESS, PATCH_PROFILE_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS } from "../constants";
-import { AppDispatch } from "../types";
+import { AppDispatch, AppThunk } from "../types";
 import { TUser } from "../types/data";
 
 export type TUserActions = 
@@ -129,7 +129,7 @@ export const login = (email: string, password: string) => {
     }
 }
 export const getProfile = () => {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: any) {
         dispatch({
             type: GET_PROFILE_REQUEST
         })
@@ -170,7 +170,12 @@ export const patchProfile = (email: string, name: string, password: string) => {
                  if(error) {
                      const refreshToken = getCookie("refreshToken")
                     updateTokenAPI(refreshToken)
-                    .then(() => dispatch(patchProfile(email, name, password)))
+                    .then((data) => {
+                        dispatch({
+                            type: PATCH_PROFILE_SUCCESS,
+                            user: data.user
+                        })
+                    })
                 }
                 else {
                     dispatch({
